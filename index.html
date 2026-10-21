@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Explainer Skill - Interactive Learning Hub</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --surface: #f9fafb;
+  --border: #e5e7eb;
+  --text: #1a1a1a;
+  --text-dim: #6b7280;
+  --green: #22c55e;
+  --blue: #3b82f6;
+  --purple: #8b5cf6;
+  --orange: #f59e0b;
+}
+
+[data-theme="dark"] {
+  --bg: #1a1a1a;
+  --surface: #262626;
+  --border: #404040;
+  --text: #f5f5f5;
+  --text-dim: #a3a3a3;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 800;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  opacity: 0.95;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+}
+
+.hero .badges {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background: rgba(255,255,255,0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.section {
+  margin-bottom: 4rem;
+}
+
+.section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.section p {
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+  font-size: 1.125rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.card .meta {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: var(--border);
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tag.v3 { background: #dcfce7; color: #166534; }
+.tag.v2 { background: #dbeafe; color: #1e40af; }
+.tag.v1 { background: #e0e7ff; color: #4338ca; }
+
+.card p {
+  color: var(--text-dim);
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background: var(--green);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #16a34a;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--surface);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.feature {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.feature h4 {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.feature p {
+  font-size: 0.875rem;
+  color: var(--text-dim);
+}
+
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.875rem;
+}
+
+footer a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🎓 AI Explainer Skill</h1>
+  <p>Transform complex topics into interactive, presentation-style HTML explanations with visual diagrams, animated walkthroughs, and professional styling.</p>
+  <div class="badges">
+    <span class="badge">✅ Interactive HTML</span>
+    <span class="badge">📊 Animated Phases</span>
+    <span class="badge">🎨 Professional Styling</span>
+    <span class="badge">📱 Responsive Design</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Examples Section -->
+  <div class="section">
+    <h2>📚 Example Explainers</h2>
+    <p>Interactive HTML pages generated using the AI Explainer Skill prompt templates.</p>
+
+    <div class="grid">
+      <!-- Forex Trading -->
+      <div class="card">
+        <div class="card-icon">💰</div>
+        <h3>Forex Trading for Advanced Gamblers</h3>
+        <div class="meta">
+          <span class="tag v2">V2</span>
+          <span class="tag">Finance</span>
+        </div>
+        <p>Brutally honest guide to forex trading covering market reality, technical analysis, risk management, and trading psychology.</p>
+        <div class="card-actions">
+          <a href="https://github.com/jlowcz/forex-trading-explainer" class="btn btn-primary" target="_blank">View Demo</a>
+          <a href="https://github.com/jlowcz/forex-trading-explainer" class="btn btn-secondary" target="_blank">GitHub</a>
+        </div>
+      </div>
+
+      <!-- Quantum Computing -->
+      <div class="card">
+        <div class="card-icon">⚛️</div>
+        <h3>Quantum Computing & Post-Quantum Defense</h3>
+        <div class="meta">
+          <span class="tag v1">V1</span>
+          <span class="tag">Security</span>
+        </div>
+        <p>Comprehensive guide to quantum computing threats, Shor's algorithm, Grover's algorithm, and NIST post-quantum cryptography standards.</p>
+        <div class="card-actions">
+          <a href="https://github.com/jlowcz/quantum-computing-explainer" class="btn btn-primary" target="_blank">View Demo</a>
+          <a href="https://github.com/jlowcz/quantum-computing-explainer" class="btn btn-secondary" target="_blank">GitHub</a>
+        </div>
+      </div>
+
+      <!-- Coming Soon Placeholder -->
+      <div class="card" style="opacity: 0.6;">
+        <div class="card-icon">🚀</div>
+        <h3>Your Next Explainer</h3>
+        <div class="meta">
+          <span class="tag v3">V3</span>
+          <span class="tag">Custom</span>
+        </div>
+        <p>Use the V3 prompt template to generate interactive explainers on any topic with animated phase walkthroughs.</p>
+        <div class="card-actions">
+          <a href="#prompt-templates" class="btn btn-primary">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prompt Templates Section -->
+  <div class="section" id="prompt-templates">
+    <h2>📝 Prompt Templates</h2>
+    <p>Three versions of the AI Explainer Skill, each building on the previous.</p>
+
+    <div class="grid">
+      <!-- V1 -->
+      <div class="card">
+        <div class="card-icon">📄</div>
+        <h3>V1: Markdown</h3>
+        <div class="meta">
+          <span class="tag v1">Markdown Only</span>
+        </div>
+        <p>Generates structured markdown explanations with sections, tables, and decision trees. Best for documentation and static content.</p>
+        <div class="card-actions">
+          <a href="https://github.com/jlowcz/ai-explainer" class="btn btn-primary" target="_blank">View Prompt</a>
+        </div>
+      </div>
+
+      <!-- V2 -->
+      <div class="card">
+        <div class="card-icon">🌐</div>
+        <h3>V2: Interactive HTML</h3>
+        <div class="meta">
+          <span class="tag v2">HTML + CSS + JS</span>
+        </div>
+        <p>Complete HTML files with navigation panels, SVG diagrams, tables, and professional styling. Includes all assets (345KB CSS/JS).</p>
+        <div class="card-actions">
+          <a href="EXPLAINER-V2-PROMPT.md" class="btn btn-primary">View Prompt</a>
+          <a href="https://github.com/jlowcz/explainer-v2-package" class="btn btn-secondary" target="_blank">GitHub</a>
+        </div>
+      </div>
+
+      <!-- V3 -->
+      <div class="card">
+        <div class="card-icon">✨</div>
+        <h3>V3: Animated Phases</h3>
+        <div class="meta">
+          <span class="tag v3">HTML + Animations</span>
+        </div>
+        <p>Everything from V2 plus animated phase system with play/pause controls, fgBeats function, and step-by-step walkthroughs.</p>
+        <div class="card-actions">
+          <a href="EXPLAINER-V3-PROMPT-INTERACTIVE.md" class="btn btn-primary">View Prompt</a>
+          <a href="INTERACTIVE-PHASES-GUIDE.md" class="btn btn-secondary">Guide</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="section">
+    <h2>✨ Key Features</h2>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="feature-icon">🎯</div>
+        <h4>Navigation Panels</h4>
+        <p>Tab-based navigation between 3-5 major sections with smooth transitions</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">⏯️</div>
+        <h4>Animated Phases</h4>
+        <p>Auto-playing walkthroughs with dot navigation and play/pause controls</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">📊</div>
+        <h4>SVG Diagrams</h4>
+        <p>Interactive visualizations with nodes, edges, and layer-based animations</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🎨</div>
+        <h4>Professional Styling</h4>
+        <p>AWS course material look with light/dark themes and responsive design</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">📱</div>
+        <h4>Mobile Ready</h4>
+        <p>Fully responsive from 320px mobile to 4K desktop displays</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">♿</div>
+        <h4>Accessible</h4>
+        <p>ARIA labels, keyboard navigation, reduced motion support</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🔗</div>
+        <h4>Source Citations</h4>
+        <p>Authoritative references and documentation links included</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">💾</div>
+        <h4>Self-Contained</h4>
+        <p>Works offline with all assets included in the package</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resources Section -->
+  <div class="section">
+    <h2>📦 Package Contents</h2>
+    <p>Everything you need to generate and view interactive explainers.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>📁 Assets (345KB)</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li>✅ style.css (125KB) - Base layout</li>
+          <li>✅ explainer.css (21KB) - Components</li>
+          <li>✅ nav-panel.css/js - Navigation</li>
+          <li>✅ presentation-mode.css/js</li>
+          <li>✅ theme-aws.css - Color themes</li>
+          <li>✅ icons.css/js - Icon system</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🖼️ Icons (100KB)</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li>✅ 18 AWS service icons (SVG)</li>
+          <li>✅ ec2, s3, iam, guardduty...</li>
+          <li>✅ Can use emoji as fallback</li>
+          <li>✅ FontAwesome compatible</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>📖 Documentation</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li>✅ V2 Prompt Template</li>
+          <li>✅ V3 Interactive Prompt</li>
+          <li>✅ Phase System Guide</li>
+          <li>✅ Icon Setup Guide</li>
+          <li>✅ Example HTML files</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Getting Started -->
+  <div class="section">
+    <h2>🚀 Quick Start</h2>
+    <p>Generate your first interactive explainer in 3 steps.</p>
+
+    <div class="card">
+      <h3>Step 1: Choose a Prompt</h3>
+      <p style="margin-bottom: 1rem;">Pick the version that matches your needs:</p>
+      <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+        <li><strong>V1</strong> - Simple markdown for docs</li>
+        <li><strong>V2</strong> - Interactive HTML with navigation</li>
+        <li><strong>V3</strong> - Animated phases + full interactivity</li>
+      </ul>
+
+      <h3>Step 2: Use with AI</h3>
+      <p style="margin-bottom: 1rem;">Copy the prompt template and ask an AI:</p>
+      <pre style="background: var(--surface); padding: 1rem; border-radius: 8px; overflow-x: auto;">"Using the V3 explainer format, explain [your topic]"</pre>
+
+      <h3>Step 3: Add Assets</h3>
+      <p>Place the generated HTML alongside the <code>assets/</code> and <code>icons/</code> folders, then open in your browser!</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p><strong>AI Explainer Skill</strong> - Transform technical topics into interactive learning experiences</p>
+  <p>
+    <a href="https://github.com/jlowcz/explainer-v2-package" target="_blank">GitHub</a> ·
+    <a href="EXPLAINER-V3-PROMPT-INTERACTIVE.md">V3 Prompt</a> ·
+    <a href="INTERACTIVE-PHASES-GUIDE.md">Phase Guide</a> ·
+    <a href="ICON-SETUP-GUIDE.md">Icon Guide</a>
+  </p>
+  <p style="margin-top: 1rem; font-size: 0.75rem; opacity: 0.7;">
+    Based on AWS Security Engineering course materials · Version 3.0 · 2026
+  </p>
+</footer>
+
+</body>
+</html>
