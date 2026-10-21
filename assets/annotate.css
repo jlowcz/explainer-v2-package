@@ -1,0 +1,98 @@
+/* ─────────────────────────────────────────────────────────────
+   annotate.css — present-mode annotation overlay.
+   Pairs with annotate.js. Active ONLY while `body.presenting`, so it
+   never touches the normal reading view. The canvas sits above all
+   present-mode chrome (title band 60, tab-nav 55, fab 300 — see
+   presentation-mode.css), and defaults to pointer-events:none so figure
+   clicks pass straight through until the pen is switched on.
+   ───────────────────────────────────────────────────────────── */
+
+/* The ink layer. Full viewport, fixed, so clientX/clientY map 1:1 to it.
+   display:none until present mode is on; pointer-events:none until the pen
+   is on, so clicking a kill-chain node or a platform chip still works. */
+.pm-annotate-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  pointer-events: none;
+  touch-action: none;
+}
+body.presenting .pm-annotate-canvas { display: block; }
+body.pm-annotating .pm-annotate-canvas { pointer-events: auto; cursor: crosshair; }
+
+/* The tool bar. Only shown while the pen is on, so a clean slide (pen off)
+   has nothing on it. Dims to near-invisible after a few seconds of no
+   drawing, like the rest of present mode, and wakes on any tool change. */
+.pm-annotate-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 2100;
+  display: none;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: rgba(17, 26, 46, 0.88);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.4);
+  font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
+  color: #fff;
+  transition: opacity 0.35s ease;
+  user-select: none;
+}
+body.pm-annotating .pm-annotate-bar { display: flex; }
+.pm-annotate-bar.idle { opacity: 0.14; }
+
+.pm-annotate-bar .pm-ab-sw {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  padding: 0; cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+.pm-annotate-bar .pm-ab-sw:hover { transform: scale(1.12); }
+.pm-annotate-bar .pm-ab-sw.on {
+  border-color: #fff;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.45);
+}
+
+.pm-annotate-bar .pm-ab-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 30px; height: 26px;
+  padding: 0 9px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: transparent;
+  color: #fff;
+  font: inherit; font-size: 12px; font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+.pm-annotate-bar .pm-ab-btn:hover { background: rgba(255, 255, 255, 0.12); }
+.pm-annotate-bar .pm-ab-btn.on {
+  background: rgba(255, 255, 255, 0.9);
+  color: #111a2e;
+  border-color: #fff;
+}
+
+.pm-annotate-bar .pm-ab-sep {
+  width: 1px; height: 22px;
+  background: rgba(255, 255, 255, 0.18);
+}
+.pm-annotate-bar .pm-ab-hint {
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pm-annotate-bar,
+  .pm-annotate-bar .pm-ab-sw,
+  .pm-annotate-bar .pm-ab-btn { transition: none; }
+}

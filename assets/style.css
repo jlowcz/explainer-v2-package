@@ -1,0 +1,3208 @@
+/* Cloudscape-aligned typography: Open Sans for all UI/text (Cloudscape's primary
+   typeface), JetBrains Mono for code/demos (crisper on projector; falls back to
+   Cloudscape's Monaco stack). */
+/* fonts are self-hosted: see fonts.css */
+
+:root {
+  /* Light palette — warm white + emerald */
+  --bg: #F8F9FB;
+  --bg-white: #FFFFFF;
+  --bg-hero: #0C1322;
+  --bg-hero-surface: #111A2E;
+  --green: #059669;
+  --green-light: #10B981;
+  --green-bright: #34D399;
+  --green-glow: rgba(5,150,105,.08);
+  --green-glow-strong: rgba(5,150,105,.14);
+  --amber: #D97706;
+  --amber-bg: #FFFBEB;
+  --blue: #2563EB;
+  --blue-bg: #EFF6FF;
+  --red: #DC2626;
+  --text: #1E293B;
+  --text-body: #334155;
+  --text-muted: #64748B;
+  --text-dim: #94A3B8;
+  --text-heading: #0F172A;
+  --border: #E2E8F0;
+  --border-hover: rgba(5,150,105,.35);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
+  --shadow-md: 0 4px 14px rgba(0,0,0,.06);
+  --shadow-lg: 0 10px 30px rgba(0,0,0,.08);
+  --shadow-glow: 0 0 30px rgba(5,150,105,.07);
+  --gradient-green: linear-gradient(135deg, #059669, #10B981);
+  --gradient-hero: linear-gradient(160deg, #0C1322 0%, #111A2E 40%, #142238 100%);
+  --radius: 14px;
+  --radius-sm: 10px;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body {
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text-body);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Hero (Index) ─── */
+.hero {
+  background: var(--gradient-hero);
+  color: #fff;
+  padding: 72px 40px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(16,185,129,.1) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 60%, rgba(96,165,250,.05) 0%, transparent 50%);
+  animation: heroGlow 10s ease-in-out infinite alternate;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--green-light), var(--green-bright), var(--green-light), transparent);
+}
+@keyframes heroGlow {
+  0% { transform: translate(0,0) scale(1); }
+  100% { transform: translate(-1%,1%) scale(1.02); }
+}
+.hero > * { position: relative; z-index: 1; }
+.hero h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  margin-bottom: 14px;
+  letter-spacing: -.5px;
+  line-height: 1.2;
+}
+.hero h1 .green {
+  background: linear-gradient(
+    90deg,
+    #34D399 0%,
+    #6EE7B7 25%,
+    #A7F3D0 40%,
+    #FFFFFF 50%,
+    #A7F3D0 60%,
+    #6EE7B7 75%,
+    #34D399 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  50% { background-position: 0% 0; }
+  100% { background-position: 100% 0; }
+}
+.hero .subtitle {
+  color: #94A3B8;
+  font-size: 17px;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+.hero .tagline {
+  color: #34D399;
+  font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero .tagline::before,
+.hero .tagline::after {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: #34D399;
+  opacity: .4;
+}
+
+/* ─── Module Hero ─── */
+.module-hero {
+  background: var(--gradient-hero);
+  color: #fff;
+  /* Centered to match the explainer .hero standard. */
+  padding: 56px 40px 40px;
+  text-align: center;
+  position: relative;
+}
+.module-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green), var(--green-light), var(--green));
+}
+.module-hero .back-link {
+  color: #34D399;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.module-hero .back-link:hover { color: #6EE7B7; }
+.module-hero h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  letter-spacing: -.3px;
+}
+.module-hero h1 .green {
+  background: linear-gradient(
+    90deg,
+    #34D399 0%,
+    #6EE7B7 25%,
+    #A7F3D0 40%,
+    #FFFFFF 50%,
+    #A7F3D0 60%,
+    #6EE7B7 75%,
+    #34D399 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s ease-in-out infinite;
+}
+.module-hero .mod-subtitle { color: #94A3B8; font-size: 15px; max-width: 720px; margin: 0 auto; }
+.module-hero .tagline {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #34D399;
+  margin-bottom: 10px;
+}
+.module-duration {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16,185,129,.12);
+  color: #34D399;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 14px;
+  border: 1px solid rgba(16,185,129,.2);
+}
+
+/* ─── Container ─── */
+.container { max-width: 1100px; margin: 0 auto; padding: 36px 24px 72px; }
+
+/* ─── Module Cards Grid (Index) ─── */
+.module-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 18px; margin: 28px 0; }
+.module-card {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  padding: 28px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  color: var(--text-body);
+  transition: all .3s var(--ease);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.module-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gradient-green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .4s var(--ease);
+}
+.module-card:hover::before { transform: scaleX(1); }
+.module-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+.module-card .card-emoji { font-size: 34px; margin-bottom: 14px; }
+.module-card h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.module-card p { font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px; flex-grow: 1; }
+.module-card .card-duration {
+  font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace;
+  font-size: 11px;
+  color: var(--green);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--green-glow);
+  padding: 4px 10px;
+  border-radius: 12px;
+  align-self: flex-start;
+}
+
+/* ─── Info Cards ─── */
+.info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin: 24px 0; }
+.info-card {
+  background: linear-gradient(145deg, #F0FDF9 0%, #FFFFFF 60%);
+  border-radius: 16px;
+  padding: 28px 24px;
+  border: 1.5px solid rgba(5,150,105,.12);
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s ease;
+  box-shadow: 0 1px 4px rgba(0,0,0,.03);
+}
+.info-card::after {
+  content: '';
+  position: absolute;
+  bottom: -30px; right: -30px;
+  width: 100px; height: 100px;
+  background: radial-gradient(circle, rgba(5,150,105,.05) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(5,150,105,.1), 0 2px 8px rgba(0,0,0,.03);
+  border-color: rgba(5,150,105,.25);
+}
+.info-card .card-icon {
+  font-size: 28px;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px; height: 52px;
+  background: rgba(5,150,105,.07);
+  border-radius: 13px;
+}
+.info-card h4 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  margin-bottom: 8px;
+  color: var(--text-heading);
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+.info-card p { font-size: 13px; color: var(--text-body); position: relative; z-index: 1; line-height: 1.65; }
+/* Blue variant */
+.info-card.card-blue {
+  background: linear-gradient(145deg, #EFF6FF 0%, #FFFFFF 60%);
+  border-color: rgba(37,99,235,.12);
+}
+.info-card.card-blue::after { background: radial-gradient(circle, rgba(37,99,235,.05) 0%, transparent 70%); }
+.info-card.card-blue .card-icon { background: rgba(37,99,235,.07); }
+.info-card.card-blue:hover {
+  box-shadow: 0 12px 32px rgba(37,99,235,.1), 0 2px 8px rgba(0,0,0,.03);
+  border-color: rgba(37,99,235,.25);
+}
+/* Amber variant */
+.info-card.card-amber {
+  background: linear-gradient(145deg, #FFFBEB 0%, #FFFFFF 60%);
+  border-color: rgba(217,119,6,.12);
+}
+.info-card.card-amber::after { background: radial-gradient(circle, rgba(217,119,6,.05) 0%, transparent 70%); }
+.info-card.card-amber .card-icon { background: rgba(217,119,6,.07); }
+.info-card.card-amber:hover {
+  box-shadow: 0 12px 32px rgba(217,119,6,.1), 0 2px 8px rgba(0,0,0,.03);
+  border-color: rgba(217,119,6,.25);
+}
+/* Violet variant */
+.info-card.card-violet {
+  background: linear-gradient(145deg, #F5F3FF 0%, #FFFFFF 60%);
+  border-color: rgba(139,92,246,.12);
+}
+.info-card.card-violet::after { background: radial-gradient(circle, rgba(139,92,246,.05) 0%, transparent 70%); }
+.info-card.card-violet .card-icon { background: rgba(139,92,246,.07); }
+.info-card.card-violet:hover {
+  box-shadow: 0 12px 32px rgba(139,92,246,.1), 0 2px 8px rgba(0,0,0,.03);
+  border-color: rgba(139,92,246,.25);
+}
+
+/* ─── Content Sections ─── */
+.section {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+.section h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-heading);
+  margin-bottom: 14px;
+  letter-spacing: -.3px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* No side-line accent bar on headings (see site-theme skill: no side-line color). */
+.section h2::before { content: none; }
+.section h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 24px 0 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+.section h4 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 14px 0 8px;
+}
+.section p, .section li { font-size: 14.5px; color: var(--text-body); }
+.section ul { margin: 10px 0 10px 22px; }
+.section li { margin-bottom: 5px; }
+.section li::marker { color: var(--green); }
+
+/* ─── Steps Table ─── */
+.steps-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 18px 0;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.steps-table th {
+  background: var(--bg-hero);
+  color: #fff;
+  padding: 12px 16px;
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.steps-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14.5px;
+  color: var(--text-body);
+}
+.steps-table tr:last-child td { border-bottom: none; }
+.steps-table tr:hover td { background: var(--green-glow); }
+
+/* ─── Prompt Block — soft mint theme ─── */
+.prompt-block {
+  position: relative;
+  background: #F0FDF9;
+  border-radius: var(--radius-sm);
+  margin: 18px 0;
+  overflow: hidden;
+  border: 1px solid #A7F3D0;
+  box-shadow: 0 2px 8px rgba(5,150,105,.06);
+}
+.prompt-label {
+  background: linear-gradient(90deg, #ECFDF5, #D1FAE5);
+  color: #065F46;
+  padding: 9px 16px;
+  font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #A7F3D0;
+}
+.prompt-text {
+  color: #1E293B;
+  padding: 22px;
+  font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.85;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 440px;
+  overflow-y: auto;
+  background: #FAFFFE;
+}
+.prompt-text::-webkit-scrollbar { width: 5px; }
+.prompt-text::-webkit-scrollbar-track { background: transparent; }
+.prompt-text::-webkit-scrollbar-thumb { background: #A7F3D0; border-radius: 3px; }
+.copy-btn {
+  background: var(--green);
+  color: #fff;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s var(--ease);
+}
+.copy-btn:hover { background: var(--green-light); transform: scale(1.03); }
+.copy-btn.copied { background: #64748B; }
+
+/* ─── Checkpoint ─── */
+.checkpoint {
+  background: linear-gradient(135deg, #F0FFF4, #ECFDF5);
+  border: 1px solid rgba(5,150,105,.22);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 13.5px;
+  color: var(--text-body);
+}
+.checkpoint strong { color: var(--green); }
+
+/* ─── Accomplishments ─── */
+.accomplishments {
+  background: linear-gradient(135deg, #F8F9FB, #F1F5F9);
+  border-radius: var(--radius-sm);
+  padding: 22px;
+  margin-top: 24px;
+  border: 1px solid var(--border);
+}
+.accomplishments h4 {
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 10px;
+  color: var(--text-heading);
+  font-weight: 700;
+}
+.accomplishments li { font-size: 13.5px; margin-bottom: 5px; }
+
+/* ─── Notice ─── */
+.notice {
+  background: var(--amber-bg);
+  border: 1px solid rgba(217,119,6,.22);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin: 18px 0;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--text-body);
+}
+.notice strong { color: var(--text-heading); }
+.notice-blue, .notice[style*="EFF6FF"], .notice[style*="eff6ff"] {
+  background: var(--blue-bg) !important;
+  border-color: rgba(37,99,235,.26) !important;
+}
+.notice[style*="FFFFF0"], .notice[style*="fffff0"] {
+  background: var(--amber-bg) !important;
+  border-color: rgba(217,119,6,.26) !important;
+}
+
+/* ─── Footer ─── */
+.footer {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.footer .logo {
+  font-family: 'Open Sans', sans-serif;
+  color: var(--green);
+  font-weight: 800;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+/* ─── Page Nav ─── */
+.page-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.page-nav a {
+  color: var(--green);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 8px;
+  transition: all .25s var(--ease);
+  background: var(--green-glow);
+  border: 1px solid rgba(5,150,105,.12);
+}
+.page-nav a:hover { background: var(--green-glow-strong); border-color: var(--border-hover); }
+
+/* ─── Summary Table ─── */
+.summary-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 16px 0;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.summary-table th {
+  background: var(--bg-hero);
+  color: #fff;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.summary-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14.5px;
+  color: var(--text-body);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.summary-table tr:hover td { background: var(--green-glow); }
+
+/* ─── Sidebar — stays dark ─── */
+.sidebar {
+  position: fixed;
+  left: 0; top: 0;
+  width: 240px;
+  height: 100vh;
+  background: linear-gradient(180deg, #0C1322, #111A2E);
+  padding: 24px 0;
+  overflow-y: auto;
+  z-index: 200;
+  border-right: 1px solid rgba(255,255,255,.06);
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
+.sidebar .sidebar-title {
+  font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace;
+  color: #34D399;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  padding: 0 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  margin-bottom: 8px;
+}
+.sidebar a {
+  display: flex;
+  align-items: center;
+  padding: 11px 20px;
+  font-size: 13px;
+  color: #94A3B8;
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all .2s var(--ease);
+  font-weight: 500;
+}
+.sidebar a:hover { color: #fff; background: rgba(255,255,255,.04); }
+.sidebar a.active {
+  color: #34D399;
+  border-left-color: #10B981;
+  background: rgba(16,185,129,.08);
+  font-weight: 600;
+}
+.sidebar .home-link {
+  color: #34D399;
+  font-size: 12px;
+  padding: 10px 20px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.sidebar .home-link:hover { color: #6EE7B7; }
+.sidebar .divider { height: 1px; background: rgba(255,255,255,.06); margin: 8px 20px; }
+.sidebar a.step-link { font-size: 12px; padding: 4px 20px 4px 28px; color: #94A3B8; border-left: 2px solid transparent; }
+.sidebar a.step-link:hover { color: #E2E8F0; background: rgba(255,255,255,.03); }
+
+/* Sidebar layout */
+.has-sidebar .module-hero { margin-left: 240px; }
+.has-sidebar .container { margin-left: 240px; max-width: calc(100% - 280px); padding: 36px 40px 72px; }
+.has-sidebar .footer { margin-left: 240px; }
+
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .has-sidebar .module-hero,
+  .has-sidebar .container,
+  .has-sidebar .footer { margin-left: 0; max-width: 100%; padding-left: 16px; padding-right: 16px; }
+  .module-grid { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── Mobile responsive ─── */
+.topics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 24px;
+  font-size: 13px;
+  color: var(--text-body, #334155);
+}
+@media (max-width: 640px) {
+  .topics-grid { grid-template-columns: 1fr; }
+
+  /* Hero */
+  .hero { padding: 40px 20px 36px; }
+  .hero h1 { font-size: 24px; }
+  .hero .subtitle { font-size: 14px; }
+  .hero .tagline { font-size: 10px; letter-spacing: 2px; }
+
+  /* Container */
+  .container { padding: 16px 14px 48px; }
+
+  /* Sections */
+  .section { padding: 20px 16px; margin-bottom: 14px; border-radius: 10px; }
+  .section h2 { font-size: 17px; }
+  .section h3 { font-size: 14px; }
+  .section p, .section li { font-size: 13.5px; }
+
+  /* Module hero — leave ~86px on the left for the nav cluster (32+4+32 + 18px gap) */
+  .module-hero { padding: 48px 16px 24px; }
+  .module-hero h1 { font-size: 20px; }
+  .module-hero .mod-subtitle { font-size: 13px; }
+
+  /* Tables */
+  .steps-table, .summary-table { font-size: 12px; }
+  .steps-table th, .summary-table th { padding: 8px 10px; font-size: 10px; }
+  .steps-table td, .summary-table td { padding: 8px 10px; }
+
+  /* Tables horizontal scroll */
+  .section table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Prompt blocks */
+  .prompt-block { margin: 12px 0; }
+  .prompt-text { padding: 14px; font-size: 11.5px; line-height: 1.7; max-height: 300px; }
+  .prompt-label { padding: 7px 12px; font-size: 10px; }
+
+  /* Cards */
+  .module-card { padding: 20px; }
+  .module-card h3 { font-size: 14px; }
+  .module-card p { font-size: 12.5px; }
+  .info-card { padding: 16px; }
+  .info-card h4 { font-size: 13px; }
+  .info-card p { font-size: 12px; }
+
+  /* Two column → single column */
+  .two-col { grid-template-columns: 1fr; gap: 14px; }
+
+  /* Page nav */
+  .page-nav { flex-direction: column; gap: 10px; }
+  .page-nav a { text-align: center; }
+
+  /* Notice */
+  .notice { padding: 12px 14px; font-size: 12.5px; }
+
+  /* Checkpoint */
+  .checkpoint { padding: 12px 14px; font-size: 12.5px; }
+
+  /* Footer */
+  .footer { padding: 32px 16px; }
+
+  /* Tab navigation (index.html) */
+  .tab-nav { overflow-x: auto; -webkit-overflow-scrolling: touch; gap: 0; }
+  .tab-btn { padding: 12px 16px; font-size: 12px; white-space: nowrap; }
+
+  /* Nav list (index.html) */
+  .nav-list a { padding: 12px 12px; gap: 10px; }
+  .nav-list .nav-title { font-size: 13px; }
+  .nav-list .nav-desc { font-size: 11.5px; }
+  .nav-list .nav-badge { font-size: 10px; padding: 2px 8px; }
+
+  /* Quick links */
+  .quick-links { gap: 8px; }
+  .quick-link { padding: 6px 12px; font-size: 12px; }
+
+  /* Topics grid in index → single column */
+  [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: repeat(3"] { grid-template-columns: 1fr !important; }
+}
+
+/* ─── Slide Viewer — stays dark ─── */
+.slide-viewer {
+  background: linear-gradient(135deg, #161B22, #1B2332);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin: 20px 0;
+  border: 1px solid rgba(255,255,255,.06);
+}
+.slide-viewer .slide-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: #000;
+  box-shadow: 0 4px 24px rgba(0,0,0,.3);
+}
+.slide-viewer .slide-container img { width: 100%; height: 100%; object-fit: contain; display: none; transition: opacity .3s ease; }
+.slide-viewer .slide-container img.active { display: block; }
+.slide-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
+.slide-controls button {
+  background: rgba(16,185,129,.12);
+  color: #34D399;
+  border: 1px solid rgba(16,185,129,.2);
+  padding: 8px 22px;
+  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .25s var(--ease);
+}
+.slide-controls button:hover { background: rgba(16,185,129,.2); }
+.slide-controls button:disabled { background: rgba(255,255,255,.05); color: #555; border-color: rgba(255,255,255,.08); cursor: default; }
+.slide-controls .slide-counter { color: #94A3B8; font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace; font-size: 12px; }
+.slide-dots { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+.slide-dots .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.15);
+  cursor: pointer;
+  transition: all .25s var(--ease);
+}
+.slide-dots .dot.active { background: #10B981; box-shadow: 0 0 10px rgba(16,185,129,.4); transform: scale(1.2); }
+.slide-dots .dot:hover { background: rgba(255,255,255,.3); }
+
+/* ─── Images in sections ─── */
+.section img {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}
+
+/* ─── Scroll animations ─── */
+.section, .module-card, .info-card {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeInUp .45s var(--ease) forwards;
+}
+.section:nth-child(1) { animation-delay: .04s; }
+.section:nth-child(2) { animation-delay: .08s; }
+.section:nth-child(3) { animation-delay: .12s; }
+.section:nth-child(4) { animation-delay: .16s; }
+.module-card:nth-child(1) { animation-delay: .04s; }
+.module-card:nth-child(2) { animation-delay: .08s; }
+.module-card:nth-child(3) { animation-delay: .12s; }
+.module-card:nth-child(4) { animation-delay: .16s; }
+.module-card:nth-child(5) { animation-delay: .20s; }
+.module-card:nth-child(6) { animation-delay: .24s; }
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tint only — do NOT force a text colour. Selected text keeps its own colour,
+   so dark text on the light prompt cards stays dark AND light text on the dark
+   "type to Claude" blocks stays light. (A previous color:#0F172A forced dark
+   text on the dark blocks → unreadable when highlighted.) */
+::selection { background: rgba(16,185,129,.32); }
+::-moz-selection { background: rgba(16,185,129,.32); }
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — applied via html[data-theme="dark"]
+   The site is light-by-default. Dark theme is opt-in via the
+   theme toggle. Light theme is the projection-friendly default;
+   dark is for personal viewing and gives the workshop a polished,
+   AI-themed evening look.
+   ════════════════════════════════════════════════════════════════════ */
+
+html[data-theme="dark"] {
+  /* Surfaces */
+  --bg: #0A0F1E;
+  --bg-white: #111A2E;
+  --bg-hero: #060A18;
+  --bg-hero-surface: #0C1322;
+
+  /* Brand greens stay bright on dark — bump alpha for visibility */
+  --green: #10B981;
+  --green-light: #34D399;
+  --green-bright: #6EE7B7;
+  --green-glow: rgba(52,211,153,.12);
+  --green-glow-strong: rgba(52,211,153,.20);
+
+  /* Accents */
+  --amber: #FBBF24;
+  --amber-bg: rgba(251,191,36,.10);
+  --blue: #60A5FA;
+  --blue-bg: rgba(96,165,250,.10);
+  --red: #F87171;
+
+  /* Text */
+  --text: #E5E7EB;
+  --text-body: #CBD5E1;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
+  --text-heading: #F1F5F9;
+
+  /* Borders & shadows */
+  --border: rgba(255,255,255,.08);
+  --border-hover: rgba(52,211,153,.45);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.30), 0 1px 2px rgba(0,0,0,.20);
+  --shadow-md: 0 4px 14px rgba(0,0,0,.35);
+  --shadow-lg: 0 10px 30px rgba(0,0,0,.45);
+  --shadow-glow: 0 0 30px rgba(52,211,153,.10);
+
+  /* Gradients */
+  --gradient-green: linear-gradient(135deg, #10B981, #34D399);
+  --gradient-hero: linear-gradient(160deg, #060A18 0%, #0C1322 40%, #111A2E 100%);
+}
+
+html[data-theme="dark"] body { color: var(--text-body); }
+
+/* Hero — already uses --gradient-hero; just punch up the glow */
+html[data-theme="dark"] .hero::before {
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(52,211,153,.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 60%, rgba(96,165,250,.10) 0%, transparent 50%);
+}
+
+/* Sections */
+html[data-theme="dark"] .section {
+  background: var(--bg-white);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+html[data-theme="dark"] .section h2,
+html[data-theme="dark"] .section h3,
+html[data-theme="dark"] .section h4 { color: var(--text-heading); }
+html[data-theme="dark"] .section h3 { border-top-color: var(--border); }
+
+/* Info cards — flip from bright tints to deep tinted glass */
+html[data-theme="dark"] .info-card {
+  background: linear-gradient(145deg, rgba(16,185,129,.10) 0%, rgba(17,26,46,.85) 60%);
+  border-color: rgba(52,211,153,.18);
+}
+html[data-theme="dark"] .info-card::after {
+  background: radial-gradient(circle, rgba(52,211,153,.10) 0%, transparent 70%);
+}
+html[data-theme="dark"] .info-card .card-icon { background: rgba(52,211,153,.14); }
+html[data-theme="dark"] .info-card h4 { color: var(--text-heading); }
+html[data-theme="dark"] .info-card p { color: var(--text-body); }
+html[data-theme="dark"] .info-card:hover {
+  border-color: rgba(52,211,153,.40);
+  box-shadow: 0 12px 32px rgba(52,211,153,.18), 0 2px 8px rgba(0,0,0,.30);
+}
+html[data-theme="dark"] .info-card.card-blue {
+  background: linear-gradient(145deg, rgba(96,165,250,.10) 0%, rgba(17,26,46,.85) 60%);
+  border-color: rgba(96,165,250,.18);
+}
+html[data-theme="dark"] .info-card.card-blue::after { background: radial-gradient(circle, rgba(96,165,250,.10) 0%, transparent 70%); }
+html[data-theme="dark"] .info-card.card-blue .card-icon { background: rgba(96,165,250,.14); }
+html[data-theme="dark"] .info-card.card-blue:hover {
+  border-color: rgba(96,165,250,.40);
+  box-shadow: 0 12px 32px rgba(96,165,250,.18), 0 2px 8px rgba(0,0,0,.30);
+}
+html[data-theme="dark"] .info-card.card-amber {
+  background: linear-gradient(145deg, rgba(251,191,36,.10) 0%, rgba(17,26,46,.85) 60%);
+  border-color: rgba(251,191,36,.18);
+}
+html[data-theme="dark"] .info-card.card-amber::after { background: radial-gradient(circle, rgba(251,191,36,.10) 0%, transparent 70%); }
+html[data-theme="dark"] .info-card.card-amber .card-icon { background: rgba(251,191,36,.14); }
+html[data-theme="dark"] .info-card.card-amber:hover {
+  border-color: rgba(251,191,36,.40);
+  box-shadow: 0 12px 32px rgba(251,191,36,.18), 0 2px 8px rgba(0,0,0,.30);
+}
+html[data-theme="dark"] .info-card.card-violet {
+  background: linear-gradient(145deg, rgba(167,139,250,.10) 0%, rgba(17,26,46,.85) 60%);
+  border-color: rgba(167,139,250,.18);
+}
+html[data-theme="dark"] .info-card.card-violet::after { background: radial-gradient(circle, rgba(167,139,250,.10) 0%, transparent 70%); }
+html[data-theme="dark"] .info-card.card-violet .card-icon { background: rgba(167,139,250,.14); }
+html[data-theme="dark"] .info-card.card-violet:hover {
+  border-color: rgba(167,139,250,.40);
+  box-shadow: 0 12px 32px rgba(167,139,250,.18), 0 2px 8px rgba(0,0,0,.30);
+}
+
+/* Module cards (index grid) */
+html[data-theme="dark"] .module-card {
+  background: var(--bg-white);
+  border-color: var(--border);
+  color: var(--text-body);
+}
+html[data-theme="dark"] .module-card h3 { color: var(--text-heading); }
+html[data-theme="dark"] .module-card p { color: var(--text-muted); }
+html[data-theme="dark"] .module-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+/* Tables */
+html[data-theme="dark"] .steps-table,
+html[data-theme="dark"] .summary-table {
+  border-color: var(--border);
+}
+html[data-theme="dark"] .steps-table td,
+html[data-theme="dark"] .summary-table td {
+  background: var(--bg-white);
+  color: var(--text-body);
+  border-bottom-color: var(--border);
+}
+html[data-theme="dark"] .steps-table tr:hover td,
+html[data-theme="dark"] .summary-table tr:hover td { background: var(--green-glow); }
+
+/* Prompt block — dark mint */
+html[data-theme="dark"] .prompt-block {
+  background: rgba(16,185,129,.06);
+  border-color: rgba(52,211,153,.20);
+  box-shadow: 0 2px 8px rgba(0,0,0,.30);
+}
+html[data-theme="dark"] .prompt-label {
+  background: linear-gradient(90deg, rgba(16,185,129,.14), rgba(52,211,153,.10));
+  color: var(--green-bright);
+  border-bottom-color: rgba(52,211,153,.20);
+}
+html[data-theme="dark"] .prompt-text {
+  color: var(--text-body);
+  background: rgba(6,10,24,.60);
+}
+html[data-theme="dark"] .prompt-text::-webkit-scrollbar-thumb { background: rgba(52,211,153,.25); }
+
+/* Checkpoint */
+html[data-theme="dark"] .checkpoint {
+  background: linear-gradient(135deg, rgba(16,185,129,.10), rgba(52,211,153,.06));
+  border-color: rgba(52,211,153,.30);
+  color: var(--text-body);
+}
+html[data-theme="dark"] .checkpoint strong { color: var(--green-bright); }
+
+/* Accomplishments */
+html[data-theme="dark"] .accomplishments {
+  background: linear-gradient(135deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+  border-color: var(--border);
+}
+html[data-theme="dark"] .accomplishments h4 { color: var(--text-heading); }
+
+/* Notice */
+html[data-theme="dark"] .notice {
+  background: rgba(251,191,36,.08);
+  border-color: rgba(251,191,36,.24);
+  color: var(--text-body);
+}
+html[data-theme="dark"] .notice strong { color: var(--text-heading); }
+html[data-theme="dark"] .notice-blue,
+html[data-theme="dark"] .notice[style*="EFF6FF"],
+html[data-theme="dark"] .notice[style*="eff6ff"] {
+  background: rgba(96,165,250,.10) !important;
+  border-color: rgba(96,165,250,.30) !important;
+}
+
+/* Page nav */
+html[data-theme="dark"] .page-nav { border-top-color: var(--border); }
+html[data-theme="dark"] .page-nav a {
+  background: var(--green-glow);
+  border-color: rgba(52,211,153,.18);
+  color: var(--green-bright);
+}
+html[data-theme="dark"] .page-nav a:hover {
+  background: var(--green-glow-strong);
+  border-color: var(--border-hover);
+}
+
+/* Tab nav (index) */
+html[data-theme="dark"] .tab-nav {
+  background: var(--bg);
+  border-bottom-color: var(--border);
+}
+html[data-theme="dark"] .tab-btn { color: var(--text-muted); }
+html[data-theme="dark"] .tab-btn:hover { color: var(--text-heading); background: rgba(52,211,153,.06); }
+html[data-theme="dark"] .tab-btn.active {
+  color: var(--green-bright);
+  border-bottom-color: var(--green-light);
+}
+
+/* Nav list (index) */
+html[data-theme="dark"] .nav-list li { border-bottom-color: var(--border); }
+html[data-theme="dark"] .nav-list a { color: var(--text-body); }
+html[data-theme="dark"] .nav-list a:hover { background: rgba(52,211,153,.06); color: var(--green-bright); }
+html[data-theme="dark"] .nav-list .nav-title { color: var(--text-heading); }
+html[data-theme="dark"] .nav-list .nav-desc { color: var(--text-muted); }
+html[data-theme="dark"] .nav-badge.hands-on { background: rgba(52,211,153,.14); color: var(--green-bright); }
+html[data-theme="dark"] .nav-badge.reference { background: rgba(96,165,250,.14); color: var(--blue); }
+html[data-theme="dark"] .nav-badge.demo { background: rgba(251,191,36,.14); color: var(--amber); }
+
+/* Inline-styled topic boxes (Day 1/2 "Topics Covered") */
+html[data-theme="dark"] [style*="background:var(--bg-white"],
+html[data-theme="dark"] [style*="background: var(--bg-white"] {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+}
+
+/* Side nav panel (used by explainer pages) */
+html[data-theme="dark"] .side-nav-panel {
+  background: var(--bg-white);
+  border-right-color: var(--border);
+  box-shadow: 4px 0 20px rgba(0,0,0,.40);
+}
+html[data-theme="dark"] .snp-header {
+  background: rgba(255,255,255,.02);
+  border-bottom-color: var(--border);
+}
+html[data-theme="dark"] .snp-header a { color: var(--text-muted); }
+html[data-theme="dark"] .snp-header a:hover { color: var(--green-bright); }
+html[data-theme="dark"] .snp-header .snp-title { color: var(--text-heading); }
+html[data-theme="dark"] .snp-section-label { color: var(--text-dim); }
+html[data-theme="dark"] .snp-list li a { color: var(--text-body); }
+html[data-theme="dark"] .snp-list li a:hover {
+  color: var(--green-bright);
+  background: rgba(52,211,153,.05);
+  border-left-color: rgba(52,211,153,.40);
+}
+html[data-theme="dark"] .snp-list li a.current {
+  color: var(--green-bright);
+  background: rgba(52,211,153,.08);
+  border-left-color: var(--green-light);
+}
+html[data-theme="dark"] .snp-divider { background: var(--border); }
+
+/* Selection — tint only (see the light-mode note above); text keeps its colour. */
+html[data-theme="dark"] ::selection { background: rgba(52,211,153,.34); }
+html[data-theme="dark"] ::-moz-selection { background: rgba(52,211,153,.34); }
+
+/* ────────────────────────────────────────────────────────────────────
+   Theme Toggle Button (FAB, top-right)
+   ──────────────────────────────────────────────────────────────────── */
+.theme-fab {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 300;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,.18);
+  background: rgba(12,19,34,.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .25s var(--ease);
+  box-shadow: 0 4px 16px rgba(0,0,0,.18);
+}
+.theme-fab:hover {
+  transform: scale(1.06);
+  border-color: rgba(255,255,255,.32);
+  box-shadow: 0 6px 22px rgba(0,0,0,.30);
+}
+.theme-fab:active { transform: scale(.98); }
+.theme-fab .sys-pip {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  background: var(--green-light, #10B981);
+  color: #fff;
+  font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 4px;
+  border-radius: 6px;
+  letter-spacing: .5px;
+  border: 1.5px solid #0C1322;
+  display: none;
+}
+.theme-fab.is-system .sys-pip { display: block; }
+
+/* When in light theme, the FAB is on a white-ish background — flip its colours */
+html:not([data-theme="dark"]) .theme-fab {
+  background: rgba(255,255,255,.92);
+  border-color: rgba(15,23,42,.10);
+  color: #0F172A;
+  box-shadow: 0 4px 16px rgba(0,0,0,.06);
+}
+html:not([data-theme="dark"]) .theme-fab:hover {
+  border-color: rgba(5,150,105,.35);
+}
+html:not([data-theme="dark"]) .theme-fab .sys-pip {
+  background: var(--green, #059669);
+  border-color: #fff;
+}
+
+/* Mobile — push FAB so it doesn't overlap nav */
+@media (max-width: 640px) {
+  .theme-fab { top: 12px; right: 12px; width: 38px; height: 38px; font-size: 16px; }
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — Explainer page common patterns
+   These overrides target classes used across the explainer pages
+   (.concept-card, .section-nav, .callout, .compare-table, etc.).
+   They live here because every page links style.css — the inline
+   <style> blocks define the LIGHT defaults; these flip to dark.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Concept cards (used across most explainers) */
+html[data-theme="dark"] .concept-card {
+  background: linear-gradient(145deg, rgba(16,185,129,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(52,211,153,.18) !important;
+}
+html[data-theme="dark"] .concept-card::after {
+  background: radial-gradient(circle, rgba(52,211,153,.10) 0%, transparent 70%) !important;
+}
+html[data-theme="dark"] .concept-card:hover {
+  border-color: rgba(52,211,153,.40) !important;
+  box-shadow: 0 12px 32px rgba(52,211,153,.18), 0 2px 8px rgba(0,0,0,.30) !important;
+}
+html[data-theme="dark"] .concept-card h4 { color: var(--text-heading) !important; }
+html[data-theme="dark"] .concept-card p { color: var(--text-body) !important; }
+html[data-theme="dark"] .concept-card .cc-icon { background: rgba(52,211,153,.14) !important; }
+
+html[data-theme="dark"] .concept-card.blue {
+  background: linear-gradient(145deg, rgba(96,165,250,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(96,165,250,.18) !important;
+}
+html[data-theme="dark"] .concept-card.blue::after { background: radial-gradient(circle, rgba(96,165,250,.10) 0%, transparent 70%) !important; }
+html[data-theme="dark"] .concept-card.blue .cc-icon { background: rgba(96,165,250,.14) !important; }
+html[data-theme="dark"] .concept-card.blue:hover {
+  border-color: rgba(96,165,250,.40) !important;
+  box-shadow: 0 12px 32px rgba(96,165,250,.18) !important;
+}
+
+html[data-theme="dark"] .concept-card.violet {
+  background: linear-gradient(145deg, rgba(167,139,250,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(167,139,250,.18) !important;
+}
+html[data-theme="dark"] .concept-card.violet::after { background: radial-gradient(circle, rgba(167,139,250,.10) 0%, transparent 70%) !important; }
+html[data-theme="dark"] .concept-card.violet .cc-icon { background: rgba(167,139,250,.14) !important; }
+html[data-theme="dark"] .concept-card.violet:hover {
+  border-color: rgba(167,139,250,.40) !important;
+  box-shadow: 0 12px 32px rgba(167,139,250,.18) !important;
+}
+
+html[data-theme="dark"] .concept-card.amber {
+  background: linear-gradient(145deg, rgba(251,191,36,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(251,191,36,.18) !important;
+}
+html[data-theme="dark"] .concept-card.amber::after { background: radial-gradient(circle, rgba(251,191,36,.10) 0%, transparent 70%) !important; }
+html[data-theme="dark"] .concept-card.amber .cc-icon { background: rgba(251,191,36,.14) !important; }
+html[data-theme="dark"] .concept-card.amber:hover {
+  border-color: rgba(251,191,36,.40) !important;
+  box-shadow: 0 12px 32px rgba(251,191,36,.18) !important;
+}
+
+html[data-theme="dark"] .concept-card.green {
+  background: linear-gradient(145deg, rgba(52,211,153,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(52,211,153,.18) !important;
+}
+html[data-theme="dark"] .concept-card.green .cc-icon { background: rgba(52,211,153,.14) !important; }
+
+html[data-theme="dark"] .concept-card.red {
+  background: linear-gradient(145deg, rgba(248,113,113,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(248,113,113,.18) !important;
+}
+html[data-theme="dark"] .concept-card.red::after { background: radial-gradient(circle, rgba(248,113,113,.10) 0%, transparent 70%) !important; }
+html[data-theme="dark"] .concept-card.red .cc-icon { background: rgba(248,113,113,.14) !important; }
+html[data-theme="dark"] .concept-card.red:hover {
+  border-color: rgba(248,113,113,.40) !important;
+  box-shadow: 0 12px 32px rgba(248,113,113,.18) !important;
+}
+
+/* Section nav — sticky pill nav at top of explainer pages */
+html[data-theme="dark"] .section-nav {
+  background: rgba(10,15,30,.90) !important;
+  border-bottom-color: var(--border) !important;
+}
+html[data-theme="dark"] .section-nav button {
+  background: rgba(255,255,255,.04) !important;
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .section-nav button:hover {
+  border-color: rgba(52,211,153,.40) !important;
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] .section-nav button.active,
+html[data-theme="dark"] .section-nav button.is-active {
+  background: rgba(52,211,153,.14) !important;
+  border-color: rgba(52,211,153,.40) !important;
+  color: var(--green-bright) !important;
+}
+
+/* Callouts (tip/warn/info pattern in explainers) */
+html[data-theme="dark"] .callout {
+  background: rgba(52,211,153,.08) !important;
+  border-color: rgba(52,211,153,.20) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .callout.warn,
+html[data-theme="dark"] .callout.warning,
+html[data-theme="dark"] .callout.amber {
+  background: rgba(251,191,36,.10) !important;
+  border-color: rgba(251,191,36,.25) !important;
+}
+html[data-theme="dark"] .callout.info,
+html[data-theme="dark"] .callout.blue {
+  background: rgba(96,165,250,.10) !important;
+  border-color: rgba(96,165,250,.25) !important;
+}
+html[data-theme="dark"] .callout.danger,
+html[data-theme="dark"] .callout.red {
+  background: rgba(248,113,113,.10) !important;
+  border-color: rgba(248,113,113,.25) !important;
+}
+
+/* Compare/algo tables in explainers */
+html[data-theme="dark"] .compare-table,
+html[data-theme="dark"] .algo-table {
+  border-color: var(--border) !important;
+}
+html[data-theme="dark"] .compare-table td,
+html[data-theme="dark"] .algo-table td {
+  background: var(--bg-white) !important;
+  color: var(--text-body) !important;
+  border-top-color: var(--border) !important;
+  border-bottom-color: var(--border) !important;
+}
+html[data-theme="dark"] .compare-table tr:hover td,
+html[data-theme="dark"] .algo-table tr:hover td { background: rgba(52,211,153,.08) !important; }
+
+/* Finance-example boxes — flip light gradient */
+html[data-theme="dark"] .finance-example {
+  background: linear-gradient(135deg, rgba(99,102,241,.10), rgba(139,92,246,.06)) !important;
+  border-color: rgba(99,102,241,.20) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .finance-example .fe-label { color: #A5B4FC !important; }
+html[data-theme="dark"] .finance-example code {
+  background: rgba(99,102,241,.16) !important;
+  color: #C7D2FE !important;
+}
+
+/* Inline code */
+html[data-theme="dark"] code {
+  background: rgba(167,139,250,.14) !important;
+  color: #C4B5FD !important;
+}
+
+/* Hint blocks (used in canvas exercise) */
+html[data-theme="dark"] .hint-block {
+  background: rgba(167,139,250,.08) !important;
+  border-color: rgba(167,139,250,.30) !important;
+  color: var(--text-body) !important;
+}
+
+/* Step badges */
+html[data-theme="dark"] .step-badge {
+  background: rgba(52,211,153,.14) !important;
+  border-color: rgba(52,211,153,.30) !important;
+  color: var(--green-bright) !important;
+}
+
+/* Footer */
+html[data-theme="dark"] .footer { border-top-color: var(--border) !important; color: var(--text-muted) !important; }
+
+/* Detail card on AI Hierarchy — already dark, no change needed */
+
+/* General text/heading colour overrides for any inline-styled elements */
+html[data-theme="dark"] [style*="color:#0F172A"],
+html[data-theme="dark"] [style*="color: #0F172A"],
+html[data-theme="dark"] [style*="color:#1E293B"],
+html[data-theme="dark"] [style*="color: #1E293B"] {
+  color: var(--text-heading) !important;
+}
+html[data-theme="dark"] [style*="color:#334155"],
+html[data-theme="dark"] [style*="color: #334155"] {
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="color:#64748B"],
+html[data-theme="dark"] [style*="color: #64748B"] {
+  color: var(--text-muted) !important;
+}
+
+/* Inline white-background blocks → flip to dark panel */
+html[data-theme="dark"] [style*="background:var(--bg-white)"],
+html[data-theme="dark"] [style*="background: var(--bg-white)"] {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+}
+html[data-theme="dark"] [style*="background:#FFFFFF"],
+html[data-theme="dark"] [style*="background: #FFFFFF"],
+html[data-theme="dark"] [style*="background:#fff"],
+html[data-theme="dark"] [style*="background: #fff"],
+html[data-theme="dark"] [style*="background:white"],
+html[data-theme="dark"] [style*="background: white"] {
+  background: var(--bg-white) !important;
+  color: var(--text-body) !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — Inline-style overrides for pale callout backgrounds
+   These callouts and panels were authored with hardcoded hex colours
+   inline (e.g., style="background:#F0FDF4;color:var(--text-body)").
+   Inline styles beat class-based rules, so we use attribute selectors
+   with !important to flip them for dark mode.
+   The matching text colour rules ensure body text stays readable.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Mint / green callouts (✅, key insight, success) */
+html[data-theme="dark"] [style*="background:#F0FDF4"],
+html[data-theme="dark"] [style*="background: #F0FDF4"],
+html[data-theme="dark"] [style*="background:#F0FDF9"],
+html[data-theme="dark"] [style*="background: #F0FDF9"],
+html[data-theme="dark"] [style*="background:#F0FDFA"],
+html[data-theme="dark"] [style*="background: #F0FDFA"],
+html[data-theme="dark"] [style*="background:#ECFDF5"],
+html[data-theme="dark"] [style*="background: #ECFDF5"],
+html[data-theme="dark"] [style*="background:#ECFDF9"],
+html[data-theme="dark"] [style*="background: #ECFDF9"],
+html[data-theme="dark"] [style*="background:#D1FAE5"],
+html[data-theme="dark"] [style*="background: #D1FAE5"] {
+  background: rgba(52,211,153,.10) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="border:1.5px solid #A7F3D0"],
+html[data-theme="dark"] [style*="border: 1.5px solid #A7F3D0"],
+html[data-theme="dark"] [style*="border:1px solid #A7F3D0"],
+html[data-theme="dark"] [style*="border: 1px solid #A7F3D0"],
+html[data-theme="dark"] [style*="solid #6EE7B7"],
+html[data-theme="dark"] [style*="solid #34D399"] {
+  border-color: rgba(52,211,153,.30) !important;
+}
+
+/* Light blue callouts (💡 info, blue tint) */
+html[data-theme="dark"] [style*="background:#EFF6FF"],
+html[data-theme="dark"] [style*="background: #EFF6FF"],
+html[data-theme="dark"] [style*="background:#DBEAFE"],
+html[data-theme="dark"] [style*="background: #DBEAFE"],
+html[data-theme="dark"] [style*="background:#F0F9FF"],
+html[data-theme="dark"] [style*="background: #F0F9FF"] {
+  background: rgba(96,165,250,.10) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="solid #BAE6FD"],
+html[data-theme="dark"] [style*="solid #93C5FD"],
+html[data-theme="dark"] [style*="solid #60A5FA"],
+html[data-theme="dark"] [style*="solid #2563EB"] {
+  border-color: rgba(96,165,250,.30) !important;
+}
+
+/* Indigo callouts (finance examples, model selection) */
+html[data-theme="dark"] [style*="background:#EEF2FF"],
+html[data-theme="dark"] [style*="background: #EEF2FF"],
+html[data-theme="dark"] [style*="background:#E0E7FF"],
+html[data-theme="dark"] [style*="background: #E0E7FF"] {
+  background: rgba(99,102,241,.10) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="solid #C7D2FE"],
+html[data-theme="dark"] [style*="solid #A5B4FC"] {
+  border-color: rgba(99,102,241,.30) !important;
+}
+
+/* Violet callouts (hint blocks, agent design) */
+html[data-theme="dark"] [style*="background:#F5F3FF"],
+html[data-theme="dark"] [style*="background: #F5F3FF"],
+html[data-theme="dark"] [style*="background:#EDE9FE"],
+html[data-theme="dark"] [style*="background: #EDE9FE"] {
+  background: rgba(167,139,250,.10) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="solid #DDD6FE"],
+html[data-theme="dark"] [style*="solid #C4B5FD"],
+html[data-theme="dark"] [style*="solid #A78BFA"] {
+  border-color: rgba(167,139,250,.30) !important;
+}
+
+/* Amber callouts (warnings, caution) */
+html[data-theme="dark"] [style*="background:#FFFBEB"],
+html[data-theme="dark"] [style*="background: #FFFBEB"],
+html[data-theme="dark"] [style*="background:#FEF3C7"],
+html[data-theme="dark"] [style*="background: #FEF3C7"],
+html[data-theme="dark"] [style*="background:#FDE68A"],
+html[data-theme="dark"] [style*="background: #FDE68A"] {
+  background: rgba(251,191,36,.10) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="solid #FDE68A"],
+html[data-theme="dark"] [style*="solid #FCD34D"],
+html[data-theme="dark"] [style*="solid #FBBF24"] {
+  border-color: rgba(251,191,36,.30) !important;
+}
+
+/* Red callouts (errors, danger) */
+html[data-theme="dark"] [style*="background:#FEF2F2"],
+html[data-theme="dark"] [style*="background: #FEF2F2"],
+html[data-theme="dark"] [style*="background:#FEE2E2"],
+html[data-theme="dark"] [style*="background: #FEE2E2"] {
+  background: rgba(248,113,113,.10) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="solid #FECACA"],
+html[data-theme="dark"] [style*="solid #FCA5A5"],
+html[data-theme="dark"] [style*="solid #F87171"] {
+  border-color: rgba(248,113,113,.30) !important;
+}
+
+/* White panels in inline styles → dark panel */
+html[data-theme="dark"] [style*="background:#FFF;"],
+html[data-theme="dark"] [style*="background: #FFF;"],
+html[data-theme="dark"] [style*="background:#fff;"],
+html[data-theme="dark"] [style*="background: #fff;"],
+html[data-theme="dark"] [style*="background:#FFFFFF;"],
+html[data-theme="dark"] [style*="background: #FFFFFF;"] {
+  background: var(--bg-white) !important;
+  color: var(--text-body) !important;
+}
+
+/* Linear-gradient inline backgrounds — flip the common pale-to-white patterns */
+html[data-theme="dark"] [style*="linear-gradient(145deg,#F0FDF9 0%,#fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #F0FDF9 0%, #fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg,#F0FDF4,#fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #F0FDF4, #fff"] {
+  background: linear-gradient(145deg, rgba(52,211,153,.12) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(145deg,#EFF6FF 0%,#fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #EFF6FF 0%, #fff"] {
+  background: linear-gradient(145deg, rgba(96,165,250,.12) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(145deg,#EEF2FF 0%,#fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #EEF2FF 0%, #fff"] {
+  background: linear-gradient(145deg, rgba(99,102,241,.12) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(145deg,#F5F3FF 0%,#fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #F5F3FF 0%, #fff"] {
+  background: linear-gradient(145deg, rgba(167,139,250,.12) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(145deg,#FFFBEB 0%,#fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #FFFBEB 0%, #fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg,#FFFBEB,#fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #FFFBEB, #fff"] {
+  background: linear-gradient(145deg, rgba(251,191,36,.12) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+
+/* Pale gradient backgrounds (135deg) — checkpoints, finance examples */
+html[data-theme="dark"] [style*="linear-gradient(135deg,#F0FFF4"],
+html[data-theme="dark"] [style*="linear-gradient(135deg, #F0FFF4"],
+html[data-theme="dark"] [style*="linear-gradient(135deg,#ECFDF5"],
+html[data-theme="dark"] [style*="linear-gradient(135deg, #ECFDF5"] {
+  background: linear-gradient(135deg, rgba(52,211,153,.12), rgba(52,211,153,.06)) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(135deg,#EEF2FF"],
+html[data-theme="dark"] [style*="linear-gradient(135deg, #EEF2FF"] {
+  background: linear-gradient(135deg, rgba(99,102,241,.12), rgba(99,102,241,.06)) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(135deg,#F0FDF4"],
+html[data-theme="dark"] [style*="linear-gradient(135deg, #F0FDF4"] {
+  background: linear-gradient(135deg, rgba(52,211,153,.12), rgba(52,211,153,.06)) !important;
+  color: var(--text-body) !important;
+}
+
+/* Dark-on-dark text (hardcoded heading colours) — light them up */
+html[data-theme="dark"] [style*="color:#0F172A"],
+html[data-theme="dark"] [style*="color: #0F172A"],
+html[data-theme="dark"] [style*="color:#1E293B"],
+html[data-theme="dark"] [style*="color: #1E293B"],
+html[data-theme="dark"] [style*="color:#0F172A;"],
+html[data-theme="dark"] [style*="color:#1E293B;"] {
+  color: var(--text-heading) !important;
+}
+html[data-theme="dark"] [style*="color:#334155"],
+html[data-theme="dark"] [style*="color: #334155"],
+html[data-theme="dark"] [style*="color:#475569"],
+html[data-theme="dark"] [style*="color: #475569"] {
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="color:#065F46"],
+html[data-theme="dark"] [style*="color: #065F46"],
+html[data-theme="dark"] [style*="color:#047857"],
+html[data-theme="dark"] [style*="color: #047857"] {
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] [style*="color:#1E40AF"],
+html[data-theme="dark"] [style*="color: #1E40AF"],
+html[data-theme="dark"] [style*="color:#1D4ED8"],
+html[data-theme="dark"] [style*="color: #1D4ED8"],
+html[data-theme="dark"] [style*="color:#2563EB"],
+html[data-theme="dark"] [style*="color: #2563EB"] {
+  color: var(--blue) !important;
+}
+html[data-theme="dark"] [style*="color:#92400E"],
+html[data-theme="dark"] [style*="color: #92400E"],
+html[data-theme="dark"] [style*="color:#B45309"],
+html[data-theme="dark"] [style*="color: #B45309"] {
+  color: var(--amber) !important;
+}
+html[data-theme="dark"] [style*="color:#991B1B"],
+html[data-theme="dark"] [style*="color: #991B1B"],
+html[data-theme="dark"] [style*="color:#B91C1C"],
+html[data-theme="dark"] [style*="color: #B91C1C"] {
+  color: var(--red) !important;
+}
+html[data-theme="dark"] [style*="color:#5B21B6"],
+html[data-theme="dark"] [style*="color: #5B21B6"],
+html[data-theme="dark"] [style*="color:#6D28D9"],
+html[data-theme="dark"] [style*="color: #6D28D9"],
+html[data-theme="dark"] [style*="color:#4338CA"],
+html[data-theme="dark"] [style*="color: #4338CA"] {
+  color: #C4B5FD !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — Comprehensive readability sweep
+   Catches every remaining light hex background and dark text colour
+   used inline across the explainer pages, plus bespoke namespaced
+   panels (BPE tokenizer, attention heatmap, RAG assembled prompt,
+   automation stack, cheat sheet, etc.). Authored from a full audit.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* --- Remaining slate / off-white inline backgrounds --- */
+html[data-theme="dark"] [style*="background:#F8FAFC"],
+html[data-theme="dark"] [style*="background: #F8FAFC"],
+html[data-theme="dark"] [style*="background:#F1F5F9"],
+html[data-theme="dark"] [style*="background: #F1F5F9"],
+html[data-theme="dark"] [style*="background:#FAFFFE"],
+html[data-theme="dark"] [style*="background: #FAFFFE"] {
+  background: rgba(255,255,255,.04) !important;
+  color: var(--text-body) !important;
+}
+
+/* --- Remaining pale-tint backgrounds --- */
+html[data-theme="dark"] [style*="background:#F0F9FF"],
+html[data-theme="dark"] [style*="background: #F0F9FF"],
+html[data-theme="dark"] [style*="background:#F0F2FF"],
+html[data-theme="dark"] [style*="background: #F0F2FF"] {
+  background: rgba(96,165,250,.08) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="background:#FFF1F2"],
+html[data-theme="dark"] [style*="background: #FFF1F2"] {
+  background: rgba(248,113,113,.08) !important;
+  color: var(--text-body) !important;
+}
+
+/* Border #E2E8F0 (default light slate border) → soft dark border */
+html[data-theme="dark"] [style*="solid #E2E8F0"],
+html[data-theme="dark"] [style*="solid #CBD5E1"],
+html[data-theme="dark"] [style*="solid #94A3B8"] {
+  border-color: var(--border) !important;
+}
+
+/* --- Remaining dark text colours that disappear on dark bg --- */
+html[data-theme="dark"] [style*="color:#065F46"],
+html[data-theme="dark"] [style*="color: #065F46"],
+html[data-theme="dark"] [style*="color:#166534"],
+html[data-theme="dark"] [style*="color: #166534"],
+html[data-theme="dark"] [style*="color:#15803D"],
+html[data-theme="dark"] [style*="color: #15803D"] {
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] [style*="color:#115E59"],
+html[data-theme="dark"] [style*="color: #115E59"],
+html[data-theme="dark"] [style*="color:#134E4A"],
+html[data-theme="dark"] [style*="color: #134E4A"],
+html[data-theme="dark"] [style*="color:#0F766E"],
+html[data-theme="dark"] [style*="color: #0F766E"],
+html[data-theme="dark"] [style*="color:#0D9488"],
+html[data-theme="dark"] [style*="color: #0D9488"] {
+  color: #5EEAD4 !important;
+}
+html[data-theme="dark"] [style*="color:#1E40AF"],
+html[data-theme="dark"] [style*="color: #1E40AF"],
+html[data-theme="dark"] [style*="color:#1D4ED8"],
+html[data-theme="dark"] [style*="color: #1D4ED8"],
+html[data-theme="dark"] [style*="color:#1E3A8A"],
+html[data-theme="dark"] [style*="color: #1E3A8A"] {
+  color: #93C5FD !important;
+}
+html[data-theme="dark"] [style*="color:#0369A1"],
+html[data-theme="dark"] [style*="color: #0369A1"],
+html[data-theme="dark"] [style*="color:#0284C7"],
+html[data-theme="dark"] [style*="color: #0284C7"] {
+  color: #7DD3FC !important;
+}
+html[data-theme="dark"] [style*="color:#4338CA"],
+html[data-theme="dark"] [style*="color: #4338CA"],
+html[data-theme="dark"] [style*="color:#3730A3"],
+html[data-theme="dark"] [style*="color: #3730A3"] {
+  color: #A5B4FC !important;
+}
+html[data-theme="dark"] [style*="color:#475569"],
+html[data-theme="dark"] [style*="color: #475569"] {
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="color:#333"],
+html[data-theme="dark"] [style*="color: #333"] {
+  color: var(--text-body) !important;
+}
+
+/* --- Bespoke panel patterns: BPE (tokenizer), attention (transformer) --- */
+/* Panel container — flip from var(--bg) which we already dark, but ensure border + text */
+html[data-theme="dark"] .bpe-playground,
+html[data-theme="dark"] .attn-playground {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+html[data-theme="dark"] .bpe-panel,
+html[data-theme="dark"] .attn-panel {
+  background: rgba(255,255,255,.03) !important;
+  border-color: var(--border) !important;
+}
+/* Coloured panel headers (bpe-panel-header.green-h/amber-h/blue-h) */
+html[data-theme="dark"] .bpe-panel-header.green-h,
+html[data-theme="dark"] .panel-header.green-h {
+  background: rgba(52,211,153,.14) !important;
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] .bpe-panel-header.amber-h,
+html[data-theme="dark"] .panel-header.amber-h {
+  background: rgba(251,191,36,.14) !important;
+  color: var(--amber) !important;
+}
+html[data-theme="dark"] .bpe-panel-header.blue-h,
+html[data-theme="dark"] .panel-header.blue-h {
+  background: rgba(96,165,250,.14) !important;
+  color: var(--blue) !important;
+}
+
+/* Assembled prompt (RAG explainer) */
+html[data-theme="dark"] .assembled-prompt {
+  background: rgba(255,255,255,.04) !important;
+  border-color: var(--border) !important;
+}
+html[data-theme="dark"] .assembled-prompt .ap-header {
+  background: rgba(255,255,255,.06) !important;
+  border-bottom-color: var(--border) !important;
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .assembled-prompt .ap-body { color: var(--text-body) !important; }
+
+/* --- Automation stack / cheatsheet bespoke cards --- */
+html[data-theme="dark"] .arch-container,
+html[data-theme="dark"] .card-steering,
+html[data-theme="dark"] .card-skills,
+html[data-theme="dark"] .card-hooks,
+html[data-theme="dark"] .card-mcp {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .card-title { color: var(--text-heading) !important; }
+html[data-theme="dark"] .card-desc { color: var(--text-muted) !important; }
+
+/* --- Tokenization pricing tier cards --- */
+html[data-theme="dark"] .blue-tier {
+  background: linear-gradient(145deg, rgba(96,165,250,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(96,165,250,.20) !important;
+}
+html[data-theme="dark"] .analogy-bar {
+  background: rgba(255,255,255,.04) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .ab-icon { color: var(--green-bright) !important; }
+
+/* --- Tokenization pricing callouts --- */
+html[data-theme="dark"] .callout-green {
+  background: rgba(52,211,153,.10) !important;
+  border-color: rgba(52,211,153,.30) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .callout-amber {
+  background: rgba(251,191,36,.10) !important;
+  border-color: rgba(251,191,36,.30) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .callout-blue {
+  background: rgba(96,165,250,.10) !important;
+  border-color: rgba(96,165,250,.30) !important;
+  color: var(--text-body) !important;
+}
+
+/* --- Workflow patterns cards --- */
+html[data-theme="dark"] .card-amber {
+  background: linear-gradient(145deg, rgba(251,191,36,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(251,191,36,.20) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .card-blue {
+  background: linear-gradient(145deg, rgba(96,165,250,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(96,165,250,.20) !important;
+  color: var(--text-body) !important;
+}
+
+/* --- AI Hierarchy: scope-bar, detail-card already dark by design --- */
+/* No change needed — they live inside the dark .hierarchy-viz */
+
+/* --- Embeddings 3D space already dark by design --- */
+/* The 3D canvas (Three.js) renders on dark; surrounding finance-example covered above */
+
+/* --- General text safety net: any element with hardcoded body-tier text --- */
+html[data-theme="dark"] strong,
+html[data-theme="dark"] b {
+  color: var(--text-heading);
+}
+
+/* --- Last-resort: any inline-styled text inside a flipped pale callout --- */
+/* If a callout's bg got flipped but its child <strong> has hardcoded dark color,
+   the child color overrides above already handle the common cases. */
+
+/* --- Token / chip components used across multiple pages --- */
+html[data-theme="dark"] .token,
+html[data-theme="dark"] .chip,
+html[data-theme="dark"] .pill {
+  /* If they have hardcoded background, overrides above flip them.
+     Ensure text remains readable. */
+  color: var(--text-body);
+}
+
+/* --- Code blocks (multi-line, preformatted) keep dark in both themes for readability --- */
+html[data-theme="dark"] pre,
+html[data-theme="dark"] .code-block {
+  background: rgba(0,0,0,.45) !important;
+  color: #E5E7EB !important;
+  border-color: var(--border) !important;
+}
+
+/* --- Three-dot scrollbars / scrollable preview text --- */
+html[data-theme="dark"] .ap-body::-webkit-scrollbar-thumb,
+html[data-theme="dark"] .prompt-text::-webkit-scrollbar-thumb {
+  background: rgba(52,211,153,.30);
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — Cheatsheet, prompt-engineering & shared bespoke
+   patterns (narrator bar, scenario cards, decision tables, compare
+   blocks, "what people think" panels).
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Narrator bar (cheatsheet, RAG, automation stack) */
+html[data-theme="dark"] .narrator-bar,
+html[data-theme="dark"] .narrator {
+  background: rgba(52,211,153,.10) !important;
+  border-color: rgba(52,211,153,.25) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .narrator-icon { color: var(--green-bright); }
+html[data-theme="dark"] .narrator-text { color: var(--text-body); }
+
+/* Scenario cards (cheatsheet) */
+html[data-theme="dark"] .scenario-card {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .scenario-card:hover {
+  border-color: rgba(52,211,153,.40) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+html[data-theme="dark"] .scenario-card.active {
+  border-color: var(--green-light) !important;
+  background: rgba(52,211,153,.10) !important;
+  box-shadow: 0 0 0 3px rgba(52,211,153,.18) !important;
+}
+html[data-theme="dark"] .scenario-card .sc-title { color: var(--text-heading) !important; }
+html[data-theme="dark"] .scenario-card .sc-desc { color: var(--text-muted) !important; }
+
+/* Decision table (cheatsheet) */
+html[data-theme="dark"] .decision-table { border-color: var(--border) !important; }
+html[data-theme="dark"] .decision-table td {
+  background: var(--bg-white) !important;
+  color: var(--text-body) !important;
+  border-top-color: var(--border) !important;
+}
+html[data-theme="dark"] .decision-table tr:hover td {
+  background: rgba(52,211,153,.08) !important;
+}
+
+/* Compare blocks (prompt engineering — good vs bad analyst) */
+html[data-theme="dark"] .compare-bad {
+  background: rgba(248,113,113,.10) !important;
+  border-left-color: var(--red) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .compare-good {
+  background: rgba(52,211,153,.10) !important;
+  border-left-color: var(--green-light) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .compare-bad .compare-label { color: var(--red) !important; }
+html[data-theme="dark"] .compare-good .compare-label { color: var(--green-bright) !important; }
+
+/* Code blocks with hardcoded #0F172A bg (dark in both themes — keep as is) */
+/* These are intentional dark code blocks: bg:#0F172A, color:#CBD5E1.
+   They look great on light theme too. No override needed. */
+
+/* Generic high-coverage card patterns for explainer content */
+html[data-theme="dark"] .preset-card,
+html[data-theme="dark"] .topic-card,
+html[data-theme="dark"] .scenario-tile,
+html[data-theme="dark"] .pattern-card,
+html[data-theme="dark"] .layer-card,
+html[data-theme="dark"] .matrix-card {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .preset-card h4,
+html[data-theme="dark"] .topic-card h4,
+html[data-theme="dark"] .scenario-tile h4,
+html[data-theme="dark"] .pattern-card h4,
+html[data-theme="dark"] .layer-card h4,
+html[data-theme="dark"] .matrix-card h4 { color: var(--text-heading) !important; }
+html[data-theme="dark"] .preset-card p,
+html[data-theme="dark"] .topic-card p,
+html[data-theme="dark"] .scenario-tile p,
+html[data-theme="dark"] .pattern-card p,
+html[data-theme="dark"] .layer-card p,
+html[data-theme="dark"] .matrix-card p { color: var(--text-muted) !important; }
+
+/* Generic "step" / "row" patterns */
+html[data-theme="dark"] .step-item,
+html[data-theme="dark"] .step-row,
+html[data-theme="dark"] .quiz-card,
+html[data-theme="dark"] .ans-card {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+
+/* Selected/active state across explainer pages */
+html[data-theme="dark"] .selected,
+html[data-theme="dark"] .is-active,
+html[data-theme="dark"] [aria-selected="true"] {
+  background: rgba(52,211,153,.10) !important;
+  border-color: rgba(52,211,153,.40) !important;
+}
+
+/* "Topics covered" / topics-grid block in index */
+html[data-theme="dark"] .topics-grid > div { color: var(--text-body); }
+
+/* h4 headings inside any card-style container */
+html[data-theme="dark"] .info-card h4,
+html[data-theme="dark"] .concept-card h4,
+html[data-theme="dark"] .scenario-card h4,
+html[data-theme="dark"] [class*="card"] h4,
+html[data-theme="dark"] [class*="tile"] h4 {
+  color: var(--text-heading) !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — Tokenizer (BPE) explainer specific overrides
+   The tokenizer page has many bespoke components: pipeline diagram,
+   token chips (4 colour variants), vocab chips (3 variants),
+   merge-viz, model-badge, callouts (3 variants), finance-example,
+   freq-bar tracks. All authored with light hex backgrounds.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Pipeline container (the "white island" issue from screenshot) */
+html[data-theme="dark"] .pipeline {
+  background: linear-gradient(135deg, rgba(255,255,255,.03), rgba(255,255,255,.06)) !important;
+  border-color: var(--border) !important;
+}
+html[data-theme="dark"] .pipeline-step {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+}
+html[data-theme="dark"] .pipeline-step.highlight {
+  background: rgba(52,211,153,.14) !important;
+  border-color: var(--green-light) !important;
+  box-shadow: 0 0 20px rgba(52,211,153,.20) !important;
+}
+html[data-theme="dark"] .pipeline-step .ps-label { color: var(--text-heading) !important; }
+html[data-theme="dark"] .pipeline-arrow { color: var(--text-muted) !important; }
+
+/* Token display area */
+html[data-theme="dark"] .token-display {
+  background: rgba(255,255,255,.03) !important;
+  border-color: var(--border) !important;
+}
+
+/* Token chips — 4 colour variants */
+html[data-theme="dark"] .token.char {
+  background: linear-gradient(135deg, rgba(96,165,250,.14), rgba(96,165,250,.08)) !important;
+  border-color: rgba(96,165,250,.40) !important;
+  color: #93C5FD !important;
+}
+html[data-theme="dark"] .token.subword {
+  background: linear-gradient(135deg, rgba(52,211,153,.14), rgba(52,211,153,.08)) !important;
+  border-color: rgba(52,211,153,.40) !important;
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] .token.word {
+  background: linear-gradient(135deg, rgba(167,139,250,.14), rgba(167,139,250,.08)) !important;
+  border-color: rgba(167,139,250,.40) !important;
+  color: #C4B5FD !important;
+}
+html[data-theme="dark"] .token.special {
+  background: linear-gradient(135deg, rgba(251,191,36,.14), rgba(251,191,36,.08)) !important;
+  border-color: rgba(251,191,36,.40) !important;
+  color: var(--amber) !important;
+}
+html[data-theme="dark"] .token-separator { color: var(--text-muted) !important; }
+
+/* Vocab chips — 3 variants */
+html[data-theme="dark"] .vocab-chip.base {
+  background: rgba(96,165,250,.10) !important;
+  border-color: rgba(96,165,250,.30) !important;
+  color: #93C5FD !important;
+}
+html[data-theme="dark"] .vocab-chip.merged-chip {
+  background: rgba(52,211,153,.10) !important;
+  border-color: rgba(52,211,153,.30) !important;
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] .vocab-chip.new-chip {
+  background: rgba(251,191,36,.14) !important;
+  border-color: rgba(251,191,36,.40) !important;
+  color: var(--amber) !important;
+}
+
+/* Token count badge */
+html[data-theme="dark"] .token-count-badge {
+  background: rgba(52,211,153,.14) !important;
+  border-color: rgba(52,211,153,.30) !important;
+  color: var(--green-bright) !important;
+}
+
+/* Merge visualization — gradient + token chips */
+html[data-theme="dark"] .merge-viz {
+  background: linear-gradient(135deg, rgba(251,191,36,.10), rgba(251,191,36,.06)) !important;
+  border-color: rgba(251,191,36,.30) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .merge-viz .mv-label { color: var(--amber) !important; }
+html[data-theme="dark"] .merge-viz .mv-arrow { color: var(--amber) !important; }
+html[data-theme="dark"] .merge-viz .mv-old {
+  background: rgba(248,113,113,.14) !important;
+  border-color: rgba(248,113,113,.30) !important;
+  color: #FCA5A5 !important;
+}
+html[data-theme="dark"] .merge-viz .mv-new {
+  background: rgba(52,211,153,.14) !important;
+  border-color: rgba(52,211,153,.30) !important;
+  color: var(--green-bright) !important;
+}
+
+/* Just-merged glow keyframe needs dark variant */
+html[data-theme="dark"] .token.merged,
+html[data-theme="dark"] .token.just-merged {
+  animation: tokenMergeDark .6s var(--ease) !important;
+}
+@keyframes tokenMergeDark {
+  0% { background: rgba(251,191,36,.20); border-color: rgba(251,191,36,.50); transform: scale(1.15); box-shadow: 0 0 16px rgba(251,191,36,.40); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); box-shadow: 0 1px 3px rgba(0,0,0,.20); }
+}
+
+/* Frequency bar tracks */
+html[data-theme="dark"] .freq-bar-track {
+  background: rgba(255,255,255,.06) !important;
+}
+html[data-theme="dark"] .freq-pair { color: var(--text-body) !important; }
+html[data-theme="dark"] .freq-count { color: var(--text-muted) !important; }
+html[data-theme="dark"] .freq-bar-fill.normal {
+  background: linear-gradient(90deg, #60A5FA, #93C5FD) !important;
+}
+
+/* BPE play/control buttons in dark mode */
+html[data-theme="dark"] .bpe-btn {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .bpe-btn:hover:not(:disabled) {
+  border-color: var(--green-light) !important;
+  color: var(--green-bright) !important;
+  background: rgba(52,211,153,.10) !important;
+}
+html[data-theme="dark"] .bpe-progress { background: rgba(255,255,255,.06) !important; }
+
+/* BPE preset pills */
+html[data-theme="dark"] .bpe-preset {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .bpe-preset:hover {
+  border-color: var(--green-light) !important;
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] .bpe-preset.active {
+  background: var(--green-light) !important;
+  color: #0A0F1E !important;
+  border-color: var(--green-light) !important;
+}
+
+/* BPE input textarea */
+html[data-theme="dark"] .bpe-input {
+  background: rgba(255,255,255,.03) !important;
+  border-color: var(--border) !important;
+  color: var(--text-heading) !important;
+}
+html[data-theme="dark"] .bpe-input:focus { border-color: var(--green-light) !important; }
+
+/* Speed control */
+html[data-theme="dark"] .speed-btn {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .speed-btn:hover { border-color: var(--green-light) !important; color: var(--green-bright) !important; }
+html[data-theme="dark"] .speed-btn.active { background: var(--green-light) !important; color: #0A0F1E !important; border-color: var(--green-light) !important; }
+
+/* Model badges (algo comparison table) */
+html[data-theme="dark"] .algo-table .model-badge.gpt {
+  background: rgba(96,165,250,.14) !important;
+  color: #93C5FD !important;
+}
+html[data-theme="dark"] .algo-table .model-badge.bert {
+  background: rgba(251,191,36,.14) !important;
+  color: var(--amber) !important;
+}
+html[data-theme="dark"] .algo-table .model-badge.t5 {
+  background: rgba(99,102,241,.14) !important;
+  color: #A5B4FC !important;
+}
+
+/* Callout variants on tokenizer (insight/warning/tip) */
+html[data-theme="dark"] .callout.insight {
+  background: linear-gradient(145deg, rgba(96,165,250,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(96,165,250,.25) !important;
+}
+html[data-theme="dark"] .callout.warning {
+  background: linear-gradient(145deg, rgba(251,191,36,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(251,191,36,.25) !important;
+}
+html[data-theme="dark"] .callout.tip {
+  background: linear-gradient(145deg, rgba(52,211,153,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(52,211,153,.25) !important;
+}
+html[data-theme="dark"] .callout .callout-text { color: var(--text-body) !important; }
+html[data-theme="dark"] .callout .callout-text strong { color: var(--text-heading) !important; }
+
+/* Collapsible */
+html[data-theme="dark"] .collapsible {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+}
+html[data-theme="dark"] .collapsible-toggle {
+  background: var(--bg-white) !important;
+  color: var(--text-heading) !important;
+}
+html[data-theme="dark"] .collapsible-toggle:hover { background: rgba(255,255,255,.04) !important; }
+html[data-theme="dark"] .collapsible-toggle .arrow { color: var(--text-muted) !important; }
+
+/* How-it-works numbered steps */
+html[data-theme="dark"] .how-step p { color: var(--text-body) !important; }
+
+/* Cards used on tokenizer (h2/h3 inside) */
+html[data-theme="dark"] .card {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .card h2,
+html[data-theme="dark"] .card h3 { color: var(--text-heading) !important; }
+html[data-theme="dark"] .card p { color: var(--text-body) !important; }
+
+/* Section nav buttons (tokenizer uses different active state) */
+html[data-theme="dark"] .section-nav button.active {
+  background: var(--green-light) !important;
+  color: #0A0F1E !important;
+  border-color: var(--green-light) !important;
+  box-shadow: 0 2px 12px rgba(52,211,153,.30) !important;
+}
+
+/* Hero badges */
+html[data-theme="dark"] .hero .badge {
+  background: rgba(52,211,153,.14) !important;
+  border-color: rgba(52,211,153,.30) !important;
+  color: var(--green-bright) !important;
+}
+
+/* Tooltip styling already dark — keep as-is */
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — Final exhaustive sweep
+   Per-page bespoke patterns identified by full audit. Each page's
+   unique components get explicit overrides so dark mode is fully
+   readable on every interactive element.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ──────── EMBEDDINGS EXPLAINER ──────── */
+html[data-theme="dark"] .embed-canvas {
+  background: rgba(99,102,241,.06) !important;
+  border-color: var(--border) !important;
+}
+html[data-theme="dark"] .embed-header {
+  background: linear-gradient(135deg, #0F172A, #1E293B) !important;
+}
+html[data-theme="dark"] .embed-preset {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .embed-preset:hover {
+  border-color: rgba(99,102,241,.40) !important;
+  color: #A5B4FC !important;
+}
+html[data-theme="dark"] .embed-preset.active {
+  background: rgba(99,102,241,.20) !important;
+  color: #A5B4FC !important;
+  border-color: rgba(99,102,241,.50) !important;
+}
+html[data-theme="dark"] .onehot-cell {
+  background: rgba(255,255,255,.04) !important;
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .onehot-cell.one {
+  background: rgba(99,102,241,.20) !important;
+  color: #C7D2FE !important;
+  border-color: rgba(99,102,241,.40) !important;
+}
+html[data-theme="dark"] .onehot-cell.highlight {
+  background: rgba(251,191,36,.20) !important;
+  border-color: rgba(251,191,36,.50) !important;
+  color: var(--amber) !important;
+}
+html[data-theme="dark"] .vec-val.pos {
+  background: rgba(52,211,153,.18) !important;
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] .vec-val.neg {
+  background: rgba(248,113,113,.18) !important;
+  color: #FCA5A5 !important;
+}
+
+/* ──────── PROMPT EXERCISE ──────── */
+html[data-theme="dark"] .prompt-label {
+  background: rgba(255,255,255,.05) !important;
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .data-toggle {
+  background: rgba(52,211,153,.10) !important;
+  border-color: rgba(52,211,153,.30) !important;
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] .reveal-section {
+  background: rgba(255,255,255,.03) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .reveal-btn {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .reveal-btn:hover {
+  border-color: var(--green-light) !important;
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] .score-panel {
+  background: rgba(255,255,255,.03) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .score-btn {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .score-btn:hover {
+  border-color: var(--green-light) !important;
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] .score-result {
+  background: rgba(52,211,153,.10) !important;
+  border-color: rgba(52,211,153,.30) !important;
+  color: var(--text-body) !important;
+}
+
+/* ──────── RAG EXPLAINER ──────── */
+html[data-theme="dark"] .playground-wrap {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+}
+html[data-theme="dark"] .playground-sidebar {
+  background: rgba(255,255,255,.03) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .scenario-pill {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .scenario-pill:hover {
+  border-color: var(--green-light) !important;
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] .scenario-pill.active {
+  background: var(--green-light) !important;
+  color: #0A0F1E !important;
+  border-color: var(--green-light) !important;
+}
+html[data-theme="dark"] .ctrl-btn {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .ctrl-btn:hover {
+  border-color: var(--green-light) !important;
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] .ctrl-btn.play {
+  background: var(--green-light) !important;
+  color: #0A0F1E !important;
+  border-color: var(--green-light) !important;
+}
+html[data-theme="dark"] .step-card {
+  background: rgba(255,255,255,.03) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .step-card.visible {
+  background: var(--bg-white) !important;
+  border-color: var(--border-hover) !important;
+}
+html[data-theme="dark"] .chunk-box.bad {
+  background: rgba(248,113,113,.10) !important;
+  border-color: rgba(248,113,113,.40) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .chunk-box.good {
+  background: rgba(52,211,153,.10) !important;
+  border-color: rgba(52,211,153,.40) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .vector-space-header {
+  background: rgba(255,255,255,.03) !important;
+  border-color: var(--border) !important;
+  color: var(--text-heading) !important;
+}
+html[data-theme="dark"] .vector-canvas {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+}
+html[data-theme="dark"] .pipeline-step.active {
+  background: rgba(52,211,153,.14) !important;
+  border-color: var(--green-light) !important;
+  box-shadow: 0 0 20px rgba(52,211,153,.20) !important;
+}
+
+/* ──────── TOKENIZATION & PRICING ──────── */
+html[data-theme="dark"] .tc-quality-bar {
+  background: rgba(255,255,255,.06) !important;
+}
+html[data-theme="dark"] .tier-card.green-tier {
+  background: linear-gradient(145deg, rgba(52,211,153,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(52,211,153,.20) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .tier-card.violet-tier {
+  background: linear-gradient(145deg, rgba(167,139,250,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(167,139,250,.20) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .savings-strip {
+  background: linear-gradient(135deg, rgba(52,211,153,.14), rgba(52,211,153,.08)) !important;
+  border-color: rgba(52,211,153,.30) !important;
+  color: var(--text-body) !important;
+}
+
+/* ──────── TRANSFORMER ──────── */
+html[data-theme="dark"] .prob-bar-track {
+  background: rgba(255,255,255,.06) !important;
+}
+
+/* ──────── AGENT CANVAS EXERCISE ──────── */
+html[data-theme="dark"] .wf-card,
+html[data-theme="dark"] .pat-card {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .wf-card:hover,
+html[data-theme="dark"] .pat-card:hover {
+  border-color: rgba(52,211,153,.40) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+html[data-theme="dark"] .wf-card.selected,
+html[data-theme="dark"] .pat-card.selected {
+  background: rgba(52,211,153,.10) !important;
+  border-color: var(--green-light) !important;
+  box-shadow: 0 0 0 3px rgba(52,211,153,.18) !important;
+}
+html[data-theme="dark"] .cowork-map-card {
+  background: linear-gradient(145deg, rgba(52,211,153,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(52,211,153,.20) !important;
+  color: var(--text-body) !important;
+}
+
+/* ──────── AUTOMATION STACK ──────── */
+html[data-theme="dark"] .playground-header {
+  background: rgba(255,255,255,.04) !important;
+  border-bottom-color: var(--border) !important;
+  color: var(--text-heading) !important;
+}
+html[data-theme="dark"] .preset {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .preset:hover {
+  border-color: var(--green-light) !important;
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] .preset.active {
+  background: var(--green-light) !important;
+  color: #0A0F1E !important;
+  border-color: var(--green-light) !important;
+}
+html[data-theme="dark"] .layer-box.steering {
+  background: rgba(52,211,153,.10) !important;
+  border-color: rgba(52,211,153,.30) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .layer-box.skills {
+  background: rgba(96,165,250,.10) !important;
+  border-color: rgba(96,165,250,.30) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .layer-box.hooks {
+  background: rgba(251,191,36,.10) !important;
+  border-color: rgba(251,191,36,.30) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .layer-box.agents {
+  background: rgba(167,139,250,.10) !important;
+  border-color: rgba(167,139,250,.30) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .layer-box.mcp {
+  background: rgba(94,234,212,.10) !important;
+  border-color: rgba(94,234,212,.30) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .example-box {
+  background: rgba(255,255,255,.03) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .dt-question {
+  background: rgba(255,255,255,.04) !important;
+  color: var(--text-heading) !important;
+}
+html[data-theme="dark"] .sb-tag.steering {
+  background: rgba(52,211,153,.14) !important;
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] .sb-tag.skills {
+  background: rgba(96,165,250,.14) !important;
+  color: var(--blue) !important;
+}
+html[data-theme="dark"] .sb-tag.hooks {
+  background: rgba(251,191,36,.14) !important;
+  color: var(--amber) !important;
+}
+html[data-theme="dark"] .sb-tag.agents {
+  background: rgba(167,139,250,.14) !important;
+  color: #C4B5FD !important;
+}
+html[data-theme="dark"] .sb-tag.mcp {
+  background: rgba(94,234,212,.14) !important;
+  color: #5EEAD4 !important;
+}
+
+/* ──────── WORKFLOW PATTERNS ──────── */
+html[data-theme="dark"] .tag-chain {
+  background: rgba(96,165,250,.18) !important;
+  color: #93C5FD !important;
+}
+html[data-theme="dark"] .tag-parallel {
+  background: rgba(52,211,153,.18) !important;
+  color: var(--green-bright) !important;
+}
+html[data-theme="dark"] .tag-route {
+  background: rgba(251,191,36,.18) !important;
+  color: var(--amber) !important;
+}
+html[data-theme="dark"] .tag-orch {
+  background: rgba(167,139,250,.18) !important;
+  color: #C4B5FD !important;
+}
+html[data-theme="dark"] .info-box {
+  background: linear-gradient(145deg, rgba(52,211,153,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(52,211,153,.20) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .info-box.blue {
+  background: linear-gradient(145deg, rgba(96,165,250,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(96,165,250,.20) !important;
+}
+html[data-theme="dark"] .info-box.amber {
+  background: linear-gradient(145deg, rgba(251,191,36,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(251,191,36,.20) !important;
+}
+html[data-theme="dark"] .info-box.violet {
+  background: linear-gradient(145deg, rgba(167,139,250,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(167,139,250,.20) !important;
+}
+html[data-theme="dark"] .leader-callout {
+  background: linear-gradient(135deg, rgba(52,211,153,.10), rgba(52,211,153,.06)) !important;
+  border-color: rgba(52,211,153,.30) !important;
+  color: var(--text-body) !important;
+}
+
+/* ──────── REMAINING INLINE LINEAR-GRADIENT ATTRIBUTE OVERRIDES ──────── */
+/* The pipeline used in tokenizer/embeddings/transformer/rag inline */
+html[data-theme="dark"] [style*="linear-gradient(135deg,#F8FAFC,#F1F5F9"],
+html[data-theme="dark"] [style*="linear-gradient(135deg, #F8FAFC, #F1F5F9"] {
+  background: linear-gradient(135deg, rgba(255,255,255,.03), rgba(255,255,255,.06)) !important;
+  color: var(--text-body) !important;
+}
+/* Merge-viz / effInsight amber gradient inline */
+html[data-theme="dark"] [style*="linear-gradient(135deg,#FFFBEB,#FEF3C7"],
+html[data-theme="dark"] [style*="linear-gradient(135deg, #FFFBEB, #FEF3C7"] {
+  background: linear-gradient(135deg, rgba(251,191,36,.12), rgba(251,191,36,.06)) !important;
+  color: var(--text-body) !important;
+}
+/* Token char gradient inline */
+html[data-theme="dark"] [style*="linear-gradient(135deg,#F0F9FF,#E0F2FE"],
+html[data-theme="dark"] [style*="linear-gradient(135deg, #F0F9FF, #E0F2FE"] {
+  background: linear-gradient(135deg, rgba(96,165,250,.14), rgba(96,165,250,.08)) !important;
+  color: #93C5FD !important;
+}
+/* Token special gradient inline */
+html[data-theme="dark"] [style*="linear-gradient(135deg,#FEF3C7,#FDE68A"],
+html[data-theme="dark"] [style*="linear-gradient(135deg, #FEF3C7, #FDE68A"] {
+  background: linear-gradient(135deg, rgba(251,191,36,.14), rgba(251,191,36,.08)) !important;
+  color: var(--amber) !important;
+}
+/* Finance-example gradient inline */
+html[data-theme="dark"] [style*="linear-gradient(135deg,#F0FDF4,#ECFDF5"],
+html[data-theme="dark"] [style*="linear-gradient(135deg, #F0FDF4, #ECFDF5"] {
+  background: linear-gradient(135deg, rgba(52,211,153,.10), rgba(52,211,153,.06)) !important;
+  color: var(--text-body) !important;
+}
+/* "vs Manual" red comparison inline (prompt engineering page) */
+html[data-theme="dark"] [style*="linear-gradient(135deg,#FEF2F2,#fff"],
+html[data-theme="dark"] [style*="linear-gradient(135deg, #FEF2F2, #fff"] {
+  background: linear-gradient(135deg, rgba(248,113,113,.10), rgba(17,26,46,.85)) !important;
+  color: var(--text-body) !important;
+}
+/* Indigo gradient inline (embeddings finance examples) */
+html[data-theme="dark"] [style*="linear-gradient(135deg,#EEF2FF,#E0E7FF"],
+html[data-theme="dark"] [style*="linear-gradient(135deg, #EEF2FF, #E0E7FF"] {
+  background: linear-gradient(135deg, rgba(99,102,241,.12), rgba(99,102,241,.06)) !important;
+  color: var(--text-body) !important;
+}
+/* Tier card gradients inline (pricing) */
+html[data-theme="dark"] [style*="linear-gradient(145deg,#F0FDF9,#fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #F0FDF9, #fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg,#F0FDF9 0%,#FFFFFF 60%"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #F0FDF9 0%, #FFFFFF 60%"] {
+  background: linear-gradient(145deg, rgba(52,211,153,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(145deg,#F5F3FF 0%,#FFFFFF 60%"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #F5F3FF 0%, #FFFFFF 60%"] {
+  background: linear-gradient(145deg, rgba(167,139,250,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(145deg,#EFF6FF 0%,#FFFFFF 60%"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #EFF6FF 0%, #FFFFFF 60%"] {
+  background: linear-gradient(145deg, rgba(96,165,250,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(145deg,#FFFBEB 0%,#FFFFFF 60%"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #FFFBEB 0%, #FFFFFF 60%"] {
+  background: linear-gradient(145deg, rgba(251,191,36,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(145deg,#FEF2F2 0%,#FFFFFF 60%"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #FEF2F2 0%, #FFFFFF 60%"] {
+  background: linear-gradient(145deg, rgba(248,113,113,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(145deg,#F0FDFA 0%,#fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #F0FDFA 0%, #fff"] {
+  background: linear-gradient(145deg, rgba(94,234,212,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+
+/* ──────── BORDER-COLOR sweep — flip any remaining hardcoded light borders ──────── */
+html[data-theme="dark"] [style*="border:2px solid #FECACA"],
+html[data-theme="dark"] [style*="border: 2px solid #FECACA"],
+html[data-theme="dark"] [style*="border:2px solid #FCA5A5"] {
+  border-color: rgba(248,113,113,.40) !important;
+}
+
+/* ──────── RAG vector dot legend / 3D label ──────── */
+html[data-theme="dark"] .vector-3d-label {
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .doc-score {
+  background: rgba(255,255,255,.06) !important;
+  color: var(--text-body) !important;
+}
+
+/* ──────── Catch-all: any remaining .accent text using gradient white middle stop ──────── */
+/* These are gradient-text on dark heroes — already work in both themes */
+
+/* ──────── LinkedIn teaser is presentational — no theme overrides needed ──────── */
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — Page-local variable overrides
+   Many explainer pages re-declare colour variables in their inline
+   <style>'s :root (e.g., --indigo-bg, --teal-bg, --amber-bg). The
+   page-local :root has specificity (0,0,1); html[data-theme="dark"]
+   has (0,1,1) and wins. These overrides flip the variables for any
+   page that defined them.
+   ════════════════════════════════════════════════════════════════════ */
+
+html[data-theme="dark"] {
+  /* Tinted background variables — flip from light hex to translucent */
+  --emerald-50: rgba(52,211,153,.12);
+  --emerald-100: rgba(52,211,153,.18);
+  --indigo-bg: rgba(99,102,241,.14);
+  --violet-bg: rgba(167,139,250,.14);
+  --teal-bg: rgba(94,234,212,.14);
+  --amber-bg: rgba(251,191,36,.14);
+  --blue-bg: rgba(96,165,250,.14);
+  --rose-bg: rgba(244,63,94,.14);
+  --indigo-glow: rgba(99,102,241,.10);
+  --blue-glow: rgba(96,165,250,.10);
+  --green-glow: rgba(52,211,153,.10);
+
+  /* Brand color variables — make brighter for dark bg */
+  --indigo: #A5B4FC;
+  --violet: #C4B5FD;
+  --teal: #5EEAD4;
+  --rose: #FB7185;
+  --border-light: rgba(255,255,255,.06);
+}
+
+/* Inline spans using var(--indigo-bg), var(--amber-bg), etc. */
+html[data-theme="dark"] [style*="background:var(--indigo-bg)"],
+html[data-theme="dark"] [style*="background: var(--indigo-bg)"] {
+  background: rgba(99,102,241,.16) !important;
+  color: #A5B4FC !important;
+}
+html[data-theme="dark"] [style*="background:var(--amber-bg)"],
+html[data-theme="dark"] [style*="background: var(--amber-bg)"] {
+  background: rgba(251,191,36,.16) !important;
+  color: var(--amber) !important;
+}
+html[data-theme="dark"] [style*="background:var(--blue-bg)"],
+html[data-theme="dark"] [style*="background: var(--blue-bg)"] {
+  background: rgba(96,165,250,.16) !important;
+  color: #93C5FD !important;
+}
+html[data-theme="dark"] [style*="background:var(--violet-bg)"],
+html[data-theme="dark"] [style*="background: var(--violet-bg)"] {
+  background: rgba(167,139,250,.16) !important;
+  color: #C4B5FD !important;
+}
+html[data-theme="dark"] [style*="background:var(--teal-bg)"],
+html[data-theme="dark"] [style*="background: var(--teal-bg)"] {
+  background: rgba(94,234,212,.16) !important;
+  color: #5EEAD4 !important;
+}
+html[data-theme="dark"] [style*="background:var(--rose-bg)"],
+html[data-theme="dark"] [style*="background: var(--rose-bg)"] {
+  background: rgba(244,63,94,.16) !important;
+  color: #FB7185 !important;
+}
+html[data-theme="dark"] [style*="background:var(--emerald-50)"],
+html[data-theme="dark"] [style*="background: var(--emerald-50)"] {
+  background: rgba(52,211,153,.14) !important;
+  color: var(--green-bright) !important;
+}
+
+/* Borders that reference these variables in inline styles too */
+html[data-theme="dark"] [style*="border:1px solid var(--border)"],
+html[data-theme="dark"] [style*="border: 1px solid var(--border)"] {
+  border-color: var(--border) !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — Compact-format inline gradients
+   The 145deg gradients without `0%/60%` separators (e.g.,
+   `linear-gradient(145deg,#FEF2F2,#fff)`) weren't matched by the
+   percentage-based selectors. Adding the compact variants here.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Symbols red gradient (efficiency panel) */
+html[data-theme="dark"] [style*="linear-gradient(145deg,#FEF2F2,#fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #FEF2F2, #fff"] {
+  background: linear-gradient(145deg, rgba(248,113,113,.12) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(248,113,113,.30) !important;
+  color: var(--text-body) !important;
+}
+
+/* Words green gradient (compact) */
+html[data-theme="dark"] [style*="linear-gradient(145deg,#F0FDF9,#fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #F0FDF9, #fff"] {
+  background: linear-gradient(145deg, rgba(52,211,153,.12) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(52,211,153,.30) !important;
+  color: var(--text-body) !important;
+}
+
+/* Numbers amber gradient (compact) */
+html[data-theme="dark"] [style*="linear-gradient(145deg,#FFFBEB,#fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #FFFBEB, #fff"] {
+  background: linear-gradient(145deg, rgba(251,191,36,.12) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(251,191,36,.30) !important;
+  color: var(--text-body) !important;
+}
+
+/* Most-powerful violet gradient (compact) — cost card on tokenizer page.
+   Matches the green/amber compact catchers above. The existing
+   `[style*="color:#7C3AED"]` override at line ~2823 handles the price text. */
+html[data-theme="dark"] [style*="linear-gradient(145deg,#F5F3FF,#fff"],
+html[data-theme="dark"] [style*="linear-gradient(145deg, #F5F3FF, #fff"] {
+  background: linear-gradient(145deg, rgba(167,139,250,.14) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(167,139,250,.32) !important;
+  color: var(--text-body) !important;
+}
+
+/* Bright text colour overrides for efficiency panel digits */
+html[data-theme="dark"] [style*="color:#DC2626"],
+html[data-theme="dark"] [style*="color: #DC2626"],
+html[data-theme="dark"] [style*="color:#EF4444"],
+html[data-theme="dark"] [style*="color: #EF4444"] {
+  color: var(--red) !important;
+}
+html[data-theme="dark"] [style*="color:#D97706"],
+html[data-theme="dark"] [style*="color: #D97706"],
+html[data-theme="dark"] [style*="color:#F59E0B"],
+html[data-theme="dark"] [style*="color: #F59E0B"] {
+  color: var(--amber) !important;
+}
+html[data-theme="dark"] [style*="color:#059669"],
+html[data-theme="dark"] [style*="color: #059669"],
+html[data-theme="dark"] [style*="color:#10B981"],
+html[data-theme="dark"] [style*="color: #10B981"] {
+  color: var(--green-bright) !important;
+}
+
+/* Progress bar tracks (efficiency panel: bg:#E2E8F0 inline) */
+html[data-theme="dark"] [style*="background:#E2E8F0"],
+html[data-theme="dark"] [style*="background: #E2E8F0"] {
+  background: rgba(255,255,255,.10) !important;
+}
+
+/* Progress bar fill colours (#059669, #D97706, #DC2626) – brighten for dark bg */
+html[data-theme="dark"] [style*="background:#059669"],
+html[data-theme="dark"] [style*="background: #059669"] {
+  background: var(--green-light) !important;
+}
+html[data-theme="dark"] [style*="background:#D97706"],
+html[data-theme="dark"] [style*="background: #D97706"] {
+  background: var(--amber) !important;
+}
+html[data-theme="dark"] [style*="background:#DC2626"],
+html[data-theme="dark"] [style*="background: #DC2626"] {
+  background: var(--red) !important;
+}
+
+/* Legend swatches in tokenizer cost viz (the small color squares with light bg) */
+html[data-theme="dark"] [style*="background:#D1FAE5"],
+html[data-theme="dark"] [style*="background: #D1FAE5"] {
+  background: rgba(52,211,153,.30) !important;
+}
+html[data-theme="dark"] [style*="background:#FEF3C7"],
+html[data-theme="dark"] [style*="background: #FEF3C7"] {
+  background: rgba(251,191,36,.30) !important;
+}
+html[data-theme="dark"] [style*="background:#FEE2E2"],
+html[data-theme="dark"] [style*="background: #FEE2E2"] {
+  background: rgba(248,113,113,.30) !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — Embeddings 3D scene container
+   The Three.js scene background flips dynamically via JS on theme
+   change. This CSS rule covers the brief moment before the WebGL
+   canvas paints (avoids flash-of-light-blue on first load).
+   ════════════════════════════════════════════════════════════════════ */
+html[data-theme="dark"] .embed-canvas {
+  background: #0A0F1E !important;
+  border-color: var(--border) !important;
+}
+html[data-theme="dark"] .embed-canvas .axis-label,
+html[data-theme="dark"] .embed-3d-hint {
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .embed-canvas-wrap {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — Embeddings 3D word labels
+   The label divs have a white text-shadow (designed for light bg)
+   which produces a halo/blur on dark scenes. Inline colours are
+   dark category variants. Flip both for readable dark-bg labels.
+   ════════════════════════════════════════════════════════════════════ */
+
+html[data-theme="dark"] .embed-3d-label {
+  /* Replace white halo with dark halo so label text reads cleanly on dark scene */
+  text-shadow:
+    0 0 4px rgba(10,15,30,.95),
+    0 0 8px rgba(10,15,30,.85),
+    0 1px 2px rgba(0,0,0,.6) !important;
+  font-weight: 700 !important;
+}
+
+/* Inline label colours — flip the 5 CAT_CSS entries to bright dark-mode variants */
+/* finance #059669 → #34D399 (already covered earlier — re-asserted here for label clarity) */
+html[data-theme="dark"] .embed-3d-label[style*="color:#059669"],
+html[data-theme="dark"] .embed-3d-label[style*="color: #059669"] {
+  color: #6EE7B7 !important;
+}
+/* risk #E11D48 → bright pink */
+html[data-theme="dark"] .embed-3d-label[style*="color:#E11D48"],
+html[data-theme="dark"] .embed-3d-label[style*="color: #E11D48"] {
+  color: #FB7185 !important;
+}
+/* food #D97706 → bright amber */
+html[data-theme="dark"] .embed-3d-label[style*="color:#D97706"],
+html[data-theme="dark"] .embed-3d-label[style*="color: #D97706"] {
+  color: #FBBF24 !important;
+}
+/* tech #2563EB → bright blue */
+html[data-theme="dark"] .embed-3d-label[style*="color:#2563EB"],
+html[data-theme="dark"] .embed-3d-label[style*="color: #2563EB"] {
+  color: #93C5FD !important;
+}
+/* general #7C3AED → bright violet */
+html[data-theme="dark"] .embed-3d-label[style*="color:#7C3AED"],
+html[data-theme="dark"] .embed-3d-label[style*="color: #7C3AED"] {
+  color: #C4B5FD !important;
+}
+/* default #A78BFA fallback stays — already light enough */
+
+/* General #7C3AED text colour catch (used inline elsewhere) */
+html[data-theme="dark"] [style*="color:#7C3AED"],
+html[data-theme="dark"] [style*="color: #7C3AED"] {
+  color: #C4B5FD !important;
+}
+/* #E11D48 risk red catch */
+html[data-theme="dark"] [style*="color:#E11D48"],
+html[data-theme="dark"] [style*="color: #E11D48"] {
+  color: #FB7185 !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — Transformer attention preset buttons
+   .attn-preset.active uses bright teal bg + white text by default.
+   On dark theme the bright teal makes white text low-contrast/harsh.
+   Flip to dark navy text on bright teal for strong projection-grade
+   contrast — same pattern used for other "preset.active" states.
+   ════════════════════════════════════════════════════════════════════ */
+
+html[data-theme="dark"] .attn-preset {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .attn-preset:hover {
+  border-color: rgba(94,234,212,.50) !important;
+  color: #5EEAD4 !important;
+}
+html[data-theme="dark"] .attn-preset.active {
+  background: #5EEAD4 !important;
+  color: #0A0F1E !important;
+  border-color: #5EEAD4 !important;
+  box-shadow: 0 2px 12px rgba(94,234,212,.25) !important;
+}
+
+/* Same treatment for any other ".preset.active" buttons that use teal/green/blue brand colors */
+html[data-theme="dark"] .embed-preset.active {
+  background: #A5B4FC !important;
+  color: #0A0F1E !important;
+  border-color: #A5B4FC !important;
+}
+
+
+/* Dark-theme polish for new side-nav header subtitle */
+html[data-theme="dark"] .snp-header .snp-title { color: var(--text-heading); }
+html[data-theme="dark"] .snp-header .snp-sub { color: var(--text-dim); }
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — Skills Explainer (day2-skills-explainer.html)
+   New page (June 2026). The Best-Practices checklist rows and the
+   Prompt-vs-Skill comparison columns use light pale gradients
+   (#F0FDF9 / #FFF5F5) that left their text unreadable in dark mode.
+   Flipped to dark-tinted gradients with brand-coloured edges, plus
+   inline-style attribute selectors for the inner code blocks.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Best-Practices "Do this" rows — dark green-tinted */
+html[data-theme="dark"] .bp-list li.do {
+  background: linear-gradient(145deg, rgba(52,211,153,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(52,211,153,.25) !important;
+}
+/* Best-Practices "Don't" rows — dark rose-tinted */
+html[data-theme="dark"] .bp-list li.dont {
+  background: linear-gradient(145deg, rgba(248,113,113,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(248,113,113,.25) !important;
+}
+/* Body text inside bp rows */
+html[data-theme="dark"] .bp-list .bp-text strong {
+  color: var(--text-heading) !important;
+}
+html[data-theme="dark"] .bp-list .bp-text span {
+  color: var(--text-body) !important;
+}
+
+/* Skill vs Prompt comparison columns */
+html[data-theme="dark"] .compare-col.prompt-col {
+  background: linear-gradient(145deg, rgba(248,113,113,.08) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(248,113,113,.25) !important;
+}
+html[data-theme="dark"] .compare-col.skill-col {
+  background: linear-gradient(145deg, rgba(52,211,153,.08) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(52,211,153,.25) !important;
+}
+/* Inner code blocks inside the comparison cols — flip inline pale bg + dark text */
+html[data-theme="dark"] [style*="background:#FFF5F5"],
+html[data-theme="dark"] [style*="background: #FFF5F5"] {
+  background: rgba(248,113,113,.06) !important;
+  color: var(--text-body) !important;
+  border-color: rgba(248,113,113,.20) !important;
+}
+html[data-theme="dark"] [style*="background:#F0FDF9"],
+html[data-theme="dark"] [style*="background: #F0FDF9"] {
+  background: rgba(52,211,153,.06) !important;
+  color: var(--text-body) !important;
+  border-color: rgba(52,211,153,.20) !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — Memory & Conversations section
+   (added to day2-automation-stack-explainer.html)
+   The two memory cards (.mem-card.static / .mem-card.dynamic) and the
+   cost callout (.cost-callout) use light pale gradients with hardcoded
+   dark text colours — unreadable in dark mode. Flipping the cards to
+   dark-tinted gradients with brand-coloured text restores contrast.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* The two memory cards — dark green & dark blue tinted */
+html[data-theme="dark"] .mem-card.static {
+  background: linear-gradient(145deg, rgba(52,211,153,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(52,211,153,.28) !important;
+}
+html[data-theme="dark"] .mem-card.dynamic {
+  background: linear-gradient(145deg, rgba(96,165,250,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  border-color: rgba(96,165,250,.28) !important;
+}
+html[data-theme="dark"] .mem-card h3 { color: var(--text-heading) !important; }
+html[data-theme="dark"] .mem-card p,
+html[data-theme="dark"] .mem-card ul,
+html[data-theme="dark"] .mem-card li { color: var(--text-body) !important; }
+html[data-theme="dark"] .mem-card p strong { color: var(--text-heading) !important; }
+
+/* Mem-label badges (📏 You write this / 🤖 Claude builds this) */
+html[data-theme="dark"] .mem-card.static .mem-label {
+  background: rgba(52,211,153,.14) !important;
+  color: #6EE7B7 !important;
+}
+html[data-theme="dark"] .mem-card.dynamic .mem-label {
+  background: rgba(96,165,250,.14) !important;
+  color: #93C5FD !important;
+}
+
+/* Inner mini-callouts (the inline-styled divs at the bottom of each card) */
+html[data-theme="dark"] .mem-card div[style*="background:#ECFDF5"] {
+  background: rgba(52,211,153,.10) !important;
+  color: #6EE7B7 !important;
+}
+html[data-theme="dark"] .mem-card div[style*="background:#EFF6FF"] {
+  background: rgba(96,165,250,.10) !important;
+  color: #93C5FD !important;
+}
+html[data-theme="dark"] .mem-card div[style*="color:#065F46"] strong { color: #6EE7B7 !important; }
+html[data-theme="dark"] .mem-card div[style*="color:#1E40AF"] strong { color: #93C5FD !important; }
+
+/* Cost callout (💰 The Finance Lens — recurring token cost) */
+html[data-theme="dark"] .cost-callout {
+  background: linear-gradient(135deg, rgba(251,191,36,.10) 0%, rgba(251,191,36,.04) 100%) !important;
+  border-color: rgba(251,191,36,.28) !important;
+}
+html[data-theme="dark"] .cost-callout h4 { color: #FBBF24 !important; }
+html[data-theme="dark"] .cost-callout p { color: var(--text-body) !important; }
+html[data-theme="dark"] .cost-callout p strong { color: var(--text-heading) !important; }
+html[data-theme="dark"] .cost-callout th {
+  color: #FBBF24 !important;
+  border-bottom-color: rgba(251,191,36,.25) !important;
+}
+html[data-theme="dark"] .cost-callout td {
+  color: var(--text-body) !important;
+  border-bottom-color: rgba(251,191,36,.15) !important;
+}
+/* The amber "long conversation = multiplied cost" final row uses inline color:#92400E */
+html[data-theme="dark"] .cost-callout [style*="color:#92400E"] { color: #FBBF24 !important; }
+
+/* Context-meter is fine (uses var()) but the bar wrapper bg is hardcoded */
+html[data-theme="dark"] .ctx-bar-wrap { background: rgba(255,255,255,.04) !important; }
+
+
+/* ════════════════════════════════════════════════════════════════════
+   ▼ DARK THEME — New lab pages (Cowork Dashboard Lab, Vibe Coding Lab)
+   and the Plugins/Connectors explainer. Adds the new gradient angles
+   (160deg, 180deg, 90deg), off-white hexes, and bespoke UI-mockup
+   namespaces (.cowork-step, .preview-*, .kpi-card, .app-mock, .ab-*).
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ─── New gradient angles (160deg, 180deg, 90deg) ─── */
+html[data-theme="dark"] [style*="linear-gradient(160deg,#F0FDF9 0%,#FFFFFF 60%"],
+html[data-theme="dark"] [style*="linear-gradient(160deg, #F0FDF9 0%, #FFFFFF 60%"],
+html[data-theme="dark"] [style*="linear-gradient(160deg,#F0FDF9 0%,#FFFFFF 50%"],
+html[data-theme="dark"] [style*="linear-gradient(160deg, #F0FDF9 0%, #FFFFFF 50%"] {
+  background: linear-gradient(160deg, rgba(52,211,153,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(160deg,#EEF2FF 0%,#FFFFFF 60%"],
+html[data-theme="dark"] [style*="linear-gradient(160deg, #EEF2FF 0%, #FFFFFF 60%"] {
+  background: linear-gradient(160deg, rgba(99,102,241,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(160deg,#EFF6FF 0%,#FFFFFF 60%"],
+html[data-theme="dark"] [style*="linear-gradient(160deg, #EFF6FF 0%, #FFFFFF 60%"],
+html[data-theme="dark"] [style*="linear-gradient(160deg,#EFF6FF 0%,#FFFFFF 50%"],
+html[data-theme="dark"] [style*="linear-gradient(160deg, #EFF6FF 0%, #FFFFFF 50%"] {
+  background: linear-gradient(160deg, rgba(96,165,250,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(160deg,#F5F3FF 0%,#FFFFFF 50%"],
+html[data-theme="dark"] [style*="linear-gradient(160deg, #F5F3FF 0%, #FFFFFF 50%"] {
+  background: linear-gradient(160deg, rgba(167,139,250,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(180deg,#FFFFFF,#F8FAFC"],
+html[data-theme="dark"] [style*="linear-gradient(180deg, #FFFFFF, #F8FAFC"] {
+  background: linear-gradient(180deg, rgba(17,26,46,.85), rgba(255,255,255,.03)) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(90deg,#F0FDF9 0%,#FFFFFF 60%"],
+html[data-theme="dark"] [style*="linear-gradient(90deg, #F0FDF9 0%, #FFFFFF 60%"] {
+  background: linear-gradient(90deg, rgba(52,211,153,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] [style*="linear-gradient(90deg,#FFFBEB 0%,#FFFFFF 60%"],
+html[data-theme="dark"] [style*="linear-gradient(90deg, #FFFBEB 0%, #FFFFFF 60%"] {
+  background: linear-gradient(90deg, rgba(251,191,36,.10) 0%, rgba(17,26,46,.85) 60%) !important;
+  color: var(--text-body) !important;
+}
+/* 135deg green-to-white compact form (cowork-dashboard) */
+html[data-theme="dark"] [style*="linear-gradient(135deg,#F0FDF4,#FFFFFF"],
+html[data-theme="dark"] [style*="linear-gradient(135deg, #F0FDF4, #FFFFFF"] {
+  background: linear-gradient(135deg, rgba(52,211,153,.12), rgba(17,26,46,.85)) !important;
+  color: var(--text-body) !important;
+}
+
+/* ─── Off-white hexes ─── */
+html[data-theme="dark"] [style*="background:#FAFBFC"],
+html[data-theme="dark"] [style*="background: #FAFBFC"],
+html[data-theme="dark"] [style*="background:#FAFAF9"],
+html[data-theme="dark"] [style*="background: #FAFAF9"] {
+  background: rgba(255,255,255,.03) !important;
+  color: var(--text-body) !important;
+}
+
+/* ─── Cowork Dashboard Lab — bespoke namespace ─── */
+html[data-theme="dark"] .cowork-step {
+  background: rgba(96,165,250,.10) !important;
+  border-color: rgba(96,165,250,.30) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .cowork-step h4 { color: #93C5FD !important; }
+html[data-theme="dark"] .cowork-step p { color: var(--text-body) !important; }
+
+html[data-theme="dark"] .file-card {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .file-card:hover {
+  border-color: rgba(52,211,153,.40) !important;
+  box-shadow: 0 4px 14px rgba(52,211,153,.10) !important;
+}
+html[data-theme="dark"] .file-card .fc-icon { background: rgba(52,211,153,.14) !important; }
+
+/* Preview "browser frame" mockup */
+html[data-theme="dark"] .preview-frame {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,.40) !important;
+}
+html[data-theme="dark"] .preview-bar {
+  background: rgba(255,255,255,.04) !important;
+  border-bottom-color: var(--border) !important;
+}
+html[data-theme="dark"] .preview-body { color: var(--text-body) !important; }
+html[data-theme="dark"] .preview-body table th {
+  background: rgba(255,255,255,.04) !important;
+  color: var(--text-muted) !important;
+  border-bottom-color: var(--border) !important;
+}
+html[data-theme="dark"] .preview-body table td {
+  color: var(--text-body) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+/* KPI cards on dashboard preview */
+html[data-theme="dark"] .kpi-card {
+  background: rgba(255,255,255,.04) !important;
+  border-color: rgba(52,211,153,.25) !important;
+}
+html[data-theme="dark"] .kpi-card .kc-num { color: var(--green-bright) !important; }
+html[data-theme="dark"] .kpi-card .kc-label { color: var(--text-muted) !important; }
+
+/* Quote rows in preview */
+html[data-theme="dark"] .quote-row {
+  background: rgba(52,211,153,.10) !important;
+  border-left-color: var(--green-light) !important;
+  color: var(--text-body) !important;
+}
+html[data-theme="dark"] .quote-row .qa { color: var(--text-muted) !important; }
+
+/* ─── Vibe Coding Lab — Claude Code/desktop UI mockup ─── */
+html[data-theme="dark"] .app-mock {
+  background: var(--bg-white) !important;
+  border-color: var(--border) !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,.40) !important;
+}
+html[data-theme="dark"] .app-toggle {
+  background: rgba(255,255,255,.04) !important;
+  border-bottom-color: var(--border) !important;
+}
+html[data-theme="dark"] .app-toggle .at-pill {
+  color: var(--text-muted) !important;
+}
+html[data-theme="dark"] .app-toggle .at-pill.active {
+  background: var(--bg-white) !important;
+  color: var(--text-heading) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,.40) !important;
+}
+html[data-theme="dark"] .app-sidebar {
+  background: rgba(255,255,255,.02) !important;
+  border-bottom-color: var(--border) !important;
+}
+html[data-theme="dark"] .app-sidebar .as-row { color: var(--text-body) !important; }
+html[data-theme="dark"] .app-sidebar .as-row:hover { background: rgba(255,255,255,.04) !important; }
+html[data-theme="dark"] .app-sidebar .as-row .as-meta { color: var(--text-dim) !important; }
+html[data-theme="dark"] .app-body {
+  background: var(--bg-white) !important;
+  border-top-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+
+/* Chat-bubble pattern (.ab-user / .ab-claude / .ab-tool) */
+html[data-theme="dark"] .app-body .ab-user {
+  background: rgba(96,165,250,.12) !important;
+  color: #93C5FD !important;
+  border-left-color: var(--blue) !important;
+}
+html[data-theme="dark"] .app-body .ab-claude {
+  background: rgba(255,255,255,.04) !important;
+  color: var(--text-heading) !important;
+  border-left-color: var(--green-light) !important;
+}
+html[data-theme="dark"] .app-body .ab-tool,
+html[data-theme="dark"] .ab-tool {
+  background: rgba(167,139,250,.10) !important;
+  color: #C4B5FD !important;
+  border-left-color: var(--violet, #A78BFA) !important;
+}
+
+/* ─── Plugins / Connectors explainer — .skill-anatomy bespoke ─── */
+html[data-theme="dark"] .skill-anatomy {
+  background: rgba(255,255,255,.03) !important;
+  border-color: var(--border) !important;
+  color: var(--text-body) !important;
+}
+
+/* ─── Inline-styled chat bubbles in lab (no class — use color + bg attribute) ─── */
+html[data-theme="dark"] [style*="background:#EFF6FF"][style*="border-left"] {
+  /* Already covered via earlier #EFF6FF rule for bg, ensure border still readable */
+  border-left-color: var(--blue) !important;
+}
+
+/* ─── Make sure the brand-colour text in .cowork-step header reads on dark ─── */
+html[data-theme="dark"] [style*="color:#1D4ED8"],
+html[data-theme="dark"] [style*="color: #1D4ED8"],
+html[data-theme="dark"] [style*="color:#1E40AF"],
+html[data-theme="dark"] [style*="color: #1E40AF"],
+html[data-theme="dark"] [style*="color:#1E3A8A"],
+html[data-theme="dark"] [style*="color: #1E3A8A"] {
+  color: #93C5FD !important;
+}
+
+/* ─── Inline-styled green-tinted ".at-pill.active"-style mockup elements ─── */
+html[data-theme="dark"] [style*="background:#10B981"] {
+  background: var(--green-light) !important;
+}
+
+/* ─── Misc lab inline text colours ─── */
+html[data-theme="dark"] [style*="color:#047857"],
+html[data-theme="dark"] [style*="color: #047857"] {
+  color: var(--green-bright) !important;
+}
+
+/* ── Lab-access quick link (Overview of every lab) — icon-pill accent, no side line, theme-aware ── */
+.lab-access-cta{display:flex;align-items:center;gap:12px;background:var(--bg-white,#fff);border:1.5px solid var(--border,#E2E8F0);border-radius:12px;padding:12px 16px;margin:0 0 20px;text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s}
+.lab-access-cta:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(5,150,105,.14);border-color:rgba(5,150,105,.45)}
+.lab-access-cta .lac-icon{width:40px;height:40px;flex:none;display:flex;align-items:center;justify-content:center;border-radius:11px;background:rgba(5,150,105,.1);font-size:20px}
+.lab-access-cta .lac-text{font-size:13.5px;color:var(--text-body,#334155);line-height:1.45}
+.lab-access-cta .lac-text strong{color:var(--green,#059669)}
+.lab-access-cta .lac-arrow{margin-left:auto;color:var(--green,#059669);font-weight:700;font-size:16px;flex:none}
+html[data-theme="dark"] .lab-access-cta .lac-icon{background:rgba(52,211,153,.16)}

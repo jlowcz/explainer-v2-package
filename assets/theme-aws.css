@@ -1,0 +1,436 @@
+/* ════════════════════════════════════════════════════════════════════
+   theme-aws.css — AWS Skill Builder re-skin.
+   Loaded LAST (after style.css / explainer.css / nav-rail.css /
+   presentation-mode.css) so it wins. It remaps the site's brand
+   variables from the original emerald palette to an AWS palette
+   (Cloudscape "sea blue" primary + AWS orange accent + squid-ink navy),
+   then overrides the few hero decorations that hardcoded green.
+
+   NOTE: the CSS variables keep their original names (--green, etc.) to
+   avoid touching hundreds of references across style.css. Read "--green"
+   as "primary accent" — it now holds AWS blue.
+   ════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Primary accent — AWS Cloudscape blue (was emerald) */
+  --green: #0972D3;
+  --green-light: #539FE5;
+  --green-bright: #89BDEE;
+  --green-glow: rgba(9,114,211,.10);
+  --green-glow-strong: rgba(9,114,211,.16);
+  --gradient-green: linear-gradient(135deg, #0972D3, #539FE5);
+  --border-hover: rgba(9,114,211,.38);
+
+  /* Secondary accent — AWS orange (CTAs, highlights) */
+  --amber: #EC7211;
+  --amber-bg: #FFF4EC;
+
+  /* Info blue */
+  --blue: #0972D3;
+  --blue-bg: #F2F8FD;
+
+  /* Hero / dark surfaces — AWS squid-ink navy */
+  --bg-hero: #232F3E;
+  --bg-hero-surface: #2E3B4E;
+  --gradient-hero: linear-gradient(160deg, #161E2D 0%, #232F3E 45%, #2E3B4E 100%);
+
+  /* Neutrals — Cloudscape greys */
+  --bg: #F4F6FB;
+  --text: #16191F;
+  --text-body: #414D5C;
+  --text-muted: #5F6B7A;
+  --text-dim: #8B96A3;
+  --text-heading: #0F1B2D;
+
+  /* Page-local tint vars used by some components */
+  --emerald-50: #F0F7FF;
+  --emerald-100: #E3F0FC;
+}
+
+html[data-theme="dark"] {
+  --green: #539FE5;
+  --green-light: #89BDEE;
+  --green-bright: #B3D4F5;
+  --green-glow: rgba(83,159,229,.14);
+  --green-glow-strong: rgba(83,159,229,.22);
+  --gradient-green: linear-gradient(135deg, #539FE5, #89BDEE);
+  --border-hover: rgba(83,159,229,.45);
+  --amber: #FF9900;
+  --blue: #539FE5;
+  --bg-hero: #0F1B2D;
+  --bg-hero-surface: #16233A;
+  --gradient-hero: linear-gradient(160deg, #0A1220 0%, #0F1B2D 45%, #16233A 100%);
+  --emerald-50: rgba(83,159,229,.12);
+}
+
+/* ── Font: prefer Amazon Ember where installed, else the existing stack ── */
+body { font-family: 'Amazon Ember', 'Ember', 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+.hero h1, .module-hero h1, .section h2, .section h3, .info-card h4, .concept-card h4,
+.tab-btn, .nav-title, .nr-title, .nr-crumb-title {
+  font-family: 'Amazon Ember', 'Ember', 'Open Sans', system-ui, sans-serif;
+}
+
+/* ── Hero decorations that hardcoded emerald → AWS blue ── */
+.hero h1 .green,
+.module-hero h1 .green {
+  background: linear-gradient(90deg,
+    #539FE5 0%, #89BDEE 25%, #CFE6FA 40%, #FFFFFF 50%,
+    #CFE6FA 60%, #89BDEE 75%, #539FE5 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero .tagline { color: #89BDEE; }
+.hero .tagline::before, .hero .tagline::after { background: #89BDEE; }
+.module-hero .tagline { color: #89BDEE; }
+.module-hero .back-link { color: #89BDEE; }
+.module-hero .back-link:hover { color: #CFE6FA; }
+.module-duration { background: rgba(83,159,229,.14); color: #89BDEE; border-color: rgba(83,159,229,.28); }
+
+.hero::before {
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(83,159,229,.16) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 60%, rgba(255,153,0,.06) 0%, transparent 50%);
+}
+.hero::after { background: linear-gradient(90deg, transparent, #539FE5, #89BDEE, #539FE5, transparent); }
+.module-hero::after { background: linear-gradient(90deg, #0972D3, #539FE5, #0972D3); }
+
+/* ── Footer logo → AWS orange ── */
+.footer .logo { color: var(--green); }
+
+/* ── Present-mode FAB (hardcoded emerald in its own CSS) → AWS blue ── */
+.present-fab { color: #89BDEE; }
+html:not([data-theme="dark"]) .present-fab { color: #0972D3; }
+html:not([data-theme="dark"]) .present-fab:hover { border-color: rgba(9,114,211,.35); }
+.present-fab:hover { border-color: rgba(83,159,229,.5); }
+
+/* ── Present-mode / nav-rail track fills that referenced emerald literally ──
+   (nav-rail uses var() fallbacks, already covered; this catches the fill.) */
+.nr-track-fill { background: linear-gradient(180deg, var(--green), var(--green-light)); }
+.nr-cb-bar-fill { background: linear-gradient(90deg, var(--green), var(--green-light)); }
+
+/* ── AWS-style primary "pill" nav badges keep orange for the capstone ── */
+.nav-badge.capstone { background: rgba(236,114,17,.12); color: #EC7211; }
+.nav-badge.demo { background: rgba(236,114,17,.10); color: #EC7211; }
+
+
+/* ════════════════════════════════════════════════════════════════════
+   CLOUDSCAPE REFINEMENT LAYER
+   Aligns the light theme with the Cloudscape Design System
+   (cloudscape.design): flat surfaces, Cloudscape neutral greys,
+   subtle container shadows, Amazon Ember, and flat button/tab states.
+   Cloudscape's visual style is "flat, modern, robust" — shadows are
+   reserved for overlapping/transient elements — so we strip the
+   marketing-style gradients and hover lifts from the content cards.
+   Applies to LIGHT theme (the default); dark theme keeps the existing
+   look with the AWS-blue accent from the palette above.
+   ════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Cloudscape neutrals */
+  --bg: #f2f3f3;                 /* color-background-layout-main */
+  --bg-white: #ffffff;           /* container background */
+  --text-heading: #000716;       /* color-text-heading-default */
+  --text: #16191f;
+  --text-body: #414d5c;          /* color-text-body-secondary */
+  --text-muted: #5f6b7a;
+  --text-dim: #9ba7b6;
+  --border: #e9ebed;             /* color-border-divider-default */
+  --border-hover: #0972d3;
+
+  /* Cloudscape blue + link-hover */
+  --green: #0972d3;              /* primary / links / accent */
+  --green-light: #539fe5;
+  --green-bright: #89bdee;
+  --green-glow: rgba(9,114,211,.08);
+  --green-glow-strong: rgba(9,114,211,.14);
+  --gradient-green: #0972d3;     /* flat — Cloudscape has no accent gradients */
+  --cs-blue-hover: #033160;      /* color-text-link-hover */
+
+  /* Cloudscape status colors */
+  --cs-success: #037f0c;   --cs-success-bg: #f2fcf3;
+  --cs-error:   #d91515;   --cs-error-bg:   #fff7f7;
+  --cs-warning: #8d6605;   --cs-warning-bg: #fffbe6;
+  --cs-info:    #0972d3;   --cs-info-bg:    #f2f8fd;
+
+  /* Subtle Cloudscape shadows */
+  --shadow-sm: 0 1px 1px 0 rgba(0,7,22,.08);
+  --shadow-md: 0 1px 1px 0 rgba(0,7,22,.12), 0 4px 12px 0 rgba(0,7,22,.06);
+  --shadow-lg: 0 1px 1px 0 rgba(0,7,22,.12), 0 8px 24px 0 rgba(0,7,22,.10);
+  --shadow-glow: none;
+
+  --emerald-50: #f2f8fd;
+  --emerald-100: #e6f0fa;
+}
+
+body { background: var(--bg); }
+
+/* ── Containers: flat white, hairline border, subtle shadow, 16px radius ── */
+.section {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+}
+.section h2::before { content: none; }
+
+/* ── Section-nav → Cloudscape segmented/tab pills (flat) ── */
+.section-nav { background: rgba(242,243,243,.9); }
+.section-nav button {
+  border-radius: 20px; border-color: #c6c6cd;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.section-nav button:hover { background: #f2f8fd; color: var(--cs-blue-hover); border-color: #0972d3; }
+.section-nav button.active {
+  background: #0972d3; color: #fff; border-color: #0972d3;
+  box-shadow: none;
+}
+
+/* ── Cards: flat white, no gradient, no lift; border+shadow shift on hover ── */
+.info-card,
+.concept-card {
+  background: var(--bg-white) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+}
+.info-card::after, .concept-card::after { display: none; }   /* drop the corner glow blob */
+.info-card:hover,
+.concept-card:hover {
+  transform: none;
+  border-color: #0972d3 !important;
+  box-shadow: var(--shadow-md);
+}
+/* Icon chips: flat tinted square (Cloudscape uses subtle tints) */
+.concept-card .cc-icon { border-radius: 8px; background: #f2f8fd; }
+.info-card .card-icon { border-radius: 8px; }
+
+/* Keep the multi-color concept-card variants as flat tinted surfaces */
+.concept-card.blue   { background: #f2f8fd !important; }
+.concept-card.green  { background: #f2f8fd !important; }
+.concept-card.violet { background: #f9f7ff !important; }
+.concept-card.amber  { background: #fffbe6 !important; }
+.concept-card.red    { background: #fff7f7 !important; }
+
+/* Domain cards on the landing page */
+.domain-card { border-radius: 16px; box-shadow: var(--shadow-sm); }
+.domain-card:hover { transform: none; box-shadow: var(--shadow-md); border-color: #0972d3; }
+
+/* ── Callouts → Cloudscape "alert" look: tinted bg, hairline border ── */
+.callout {
+  border-radius: 8px;
+  background: var(--cs-info-bg); border: 1px solid rgba(9,114,211,.35);
+}
+.callout .callout-label { color: var(--cs-info); }
+.callout.blue   { background: var(--cs-info-bg);    border-color: rgba(9,114,211,.35); }
+.callout.blue .callout-label   { color: var(--cs-info); }
+.callout.amber  { background: var(--cs-warning-bg); border-color: rgba(141,102,5,.35); }
+.callout.amber .callout-label  { color: var(--cs-warning); }
+.callout.red    { background: var(--cs-error-bg);   border-color: rgba(217,21,21,.35); }
+.callout.red .callout-label    { color: var(--cs-error); }
+.callout.violet { background: #f9f7ff;              border-color: rgba(124,58,237,.30); }
+
+/* Key-insight banner → flat Cloudscape info panel (full border, no side accent) */
+.key-insight {
+  background: var(--cs-info-bg);
+  border: 1px solid rgba(9,114,211,.30);
+  border-radius: 8px;
+}
+.key-insight strong { color: var(--cs-info); }
+
+/* Split responsibility columns → flat */
+.split-col { border-radius: 12px; }
+.split-col.aws { background: #f2f8fd; border-color: rgba(9,114,211,.30); }
+.split-col.aws h4 { color: #0972d3; }
+.split-col.you { background: #fffbe6; border-color: rgba(141,102,5,.30); }
+.split-col.you h4 { color: var(--cs-warning); }
+
+/* Flow chips → flat */
+.flow-step { border-radius: 10px; box-shadow: var(--shadow-sm); }
+
+/* Surface badge → Cloudscape token/badge (small radius) */
+.surface-badge { border-radius: 4px; background: #f2f8fd; color: #0972d3; border-color: rgba(9,114,211,.30); }
+
+/* Inline code → Cloudscape code style */
+code { background: #f2f3f3; color: #16191f; border-radius: 4px; }
+
+/* Page prev/next + sources → flat */
+.page-nav a { border-radius: 8px; background: #f2f8fd; border-color: rgba(9,114,211,.25); }
+.page-nav a:hover { background: #e6f0fa; color: var(--cs-blue-hover); border-color: #0972d3; }
+.sources { border-radius: 12px; box-shadow: var(--shadow-sm); }
+
+/* Links hover → Cloudscape link-hover navy */
+.sources a:hover, .nav-list a:hover { color: var(--cs-blue-hover); }
+
+/* ── Landing page: tab active underline flat, nav-list flat hover ── */
+.tab-indicator { background: #0972d3 !important; box-shadow: none !important; }
+.tab-btn.active { color: #0972d3; }
+.info-grid .info-card { animation: none; opacity: 1; transform: none; }   /* Cloudscape is calm — keep cards visible, no entrance sweep */
+
+/* ── nav-rail (progress spine) → flat Cloudscape stepper ── */
+.nr-step.is-done .nr-node,
+.nr-step.is-active .nr-node { background: #0972d3; border-color: #0972d3; }
+.nr-step.is-active .nr-node { box-shadow: 0 0 0 3px rgba(9,114,211,.15); }
+.nr-track-fill { background: #0972d3; }
+
+/* ── Module hero: flatten the animated glow to a calm Cloudscape header ── */
+.hero::before, .module-hero::before { animation: none; }
+
+/* ════════════════════════════════════════════════════════════════════
+   DARK-THEME REPAIR LAYER
+   ────────────────────────────────────────────────────────────────────
+   The Cloudscape refinement layer above was written as a LIGHT-theme
+   pass, but almost none of it is scoped to light. Two consequences,
+   both measured with a runtime WCAG audit over all 10 pages in dark:
+
+   1. The eight --cs-* status tokens were declared in :root ONLY and
+      never redefined for dark. Their backgrounds are near-white
+      (#f2f8fd / #fff7f7 / #fffbe6 / #f2fcf3) and their foregrounds are
+      dark (#0972d3 / #d91515 / #8d6605 / #037f0c). Anything consuming
+      them inherited a light-theme surface or a dark-on-dark label:
+        • .key-insight            near-white panel, ratio 1.02 (invisible)
+        • .callout-label          #8d6605 on a dark callout, ratio 2.75
+      Redefining the tokens here fixes every consumer at once, which is
+      why this is a token fix and not a pile of per-component rules.
+
+   2. A handful of rules bake a light hex directly and had no dark
+      counterpart at all: .split-col.aws/.you, .surface-badge,
+      .callout.violet, .section-nav button:hover. Those are listed
+      individually below.
+
+   Values match the dark accents already used elsewhere in the site
+   (m1's kill-chain overrides), so status colour stays consistent.
+   All four foregrounds clear AA on our dark surfaces (6.3:1–9.8:1).
+   ════════════════════════════════════════════════════════════════════ */
+html[data-theme="dark"] {
+  --cs-success: #5DD98C;   --cs-success-bg: rgba(93,217,140,.10);
+  --cs-error:   #FF7B7B;   --cs-error-bg:   rgba(255,123,123,.10);
+  --cs-warning: #FFB84D;   --cs-warning-bg: rgba(255,184,77,.10);
+  --cs-info:    #539FE5;   --cs-info-bg:    rgba(83,159,229,.10);
+  --cs-blue-hover: #B3D4F5;   /* link hover: navy is invisible on navy */
+}
+
+/* Key-insight panel — the worst offender. Border was a dark blue that
+   vanished once the fill went translucent, so it moves with the token. */
+html[data-theme="dark"] .key-insight {
+  background: var(--cs-info-bg);
+  border-color: rgba(83,159,229,.28);
+}
+
+/* Shared-responsibility columns — hardcoded #f2f8fd / #fffbe6 */
+html[data-theme="dark"] .split-col.aws {
+  background: var(--cs-info-bg); border-color: rgba(83,159,229,.30);
+}
+html[data-theme="dark"] .split-col.aws h4 { color: var(--cs-info); }
+html[data-theme="dark"] .split-col.you {
+  background: var(--cs-warning-bg); border-color: rgba(255,184,77,.30);
+}
+/* Needs the full dark-scoped selector, not just the token: the unscoped
+   `.split-col.you h4` in the light layer is (0,2,1) and loses to style.css's
+   `html[data-theme="dark"] .section h4` at (0,2,2), which forced it white and
+   broke the amber/blue pairing the two columns rely on. */
+html[data-theme="dark"] .split-col.you h4 { color: var(--cs-warning); }
+
+/* Section eyebrow badge — hardcoded light chip + dark blue text */
+html[data-theme="dark"] .surface-badge {
+  background: var(--cs-info-bg); color: var(--cs-info);
+  border-color: rgba(83,159,229,.30);
+}
+
+/* The one callout variant style.css never covered */
+html[data-theme="dark"] .callout.violet {
+  background: rgba(167,139,250,.10) !important;
+  border-color: rgba(167,139,250,.28) !important;
+}
+html[data-theme="dark"] .callout.violet .callout-label { color: #C4B5FD; }
+
+/* Tab pill hover — a white chip flashing on a navy bar */
+html[data-theme="dark"] .section-nav button:hover {
+  background: var(--cs-info-bg); color: var(--green-light); border-color: var(--green);
+}
+
+/* ── AA bumps for muted text that measured 3.5–4.1:1 on dark ──
+   --text-dim (#64748B) is below AA at these sizes; --text-muted is the
+   same intent one step lighter. */
+html[data-theme="dark"] .snp-section-label,
+html[data-theme="dark"] .snp-header .snp-sub { color: var(--text-muted); }
+
+/* ── The same audit run in LIGHT theme ────────────────────────────────────
+   These were failing in light and are unrelated to the dark repair above:
+   nav chrome and badge text sitting at 2.2–3.0:1. Scoped to light so the
+   dark values set elsewhere in this file are not disturbed. */
+html:not([data-theme="dark"]) .snp-section-label,
+html:not([data-theme="dark"]) .snp-header .snp-sub,
+html:not([data-theme="dark"]) .nr-day { color: #5A6B80; }
+/* Brand orange #EC7211 is a fill colour, not a text colour — on a light tint
+   it lands at 2.6:1. Cloudscape's own accessible warning ink is #8d6605. */
+html:not([data-theme="dark"]) .badge-demo,
+html:not([data-theme="dark"]) .nav-badge.demo,
+html:not([data-theme="dark"]) .arc-m { color: var(--cs-warning); }
+
+/* ── Inline links in prose containers ─────────────────────────────────────
+   `.sources a` and `.nav-list a` were styled, but a link dropped inside a
+   .notice / .callout / .key-insight matched nothing and fell back to the
+   browser default #0000EE — 1.59:1 on a dark panel. Two real instances
+   (index.html's sourcing note, security-lab-guide's talk track). The
+   :not([class]) guard is deliberate: it catches any future unstyled prose
+   link without overriding the component links that carry their own class.
+   2026-08-03: `.compare-table td a` was a third instance of the same gap —
+   caught on the reordered Run Sheet, where the deployed-URL link and the M4
+   cross-link both sit in table cells. Found by reviewing a dark screenshot,
+   then confirmed against these selectors rather than judged by eye. */
+.notice a, .callout a, .key-insight a, .section > p a, .section li > a:not([class]),
+.compare-table td a:not([class]) {
+  color: var(--green); text-decoration: underline; text-underline-offset: 2px;
+}
+.notice a:hover, .callout a:hover, .key-insight a:hover,
+.section > p a:hover, .section li > a:not([class]):hover,
+.compare-table td a:not([class]):hover { color: var(--cs-blue-hover); }
+html[data-theme="dark"] .notice a, html[data-theme="dark"] .callout a,
+html[data-theme="dark"] .key-insight a, html[data-theme="dark"] .section > p a,
+html[data-theme="dark"] .section li > a:not([class]),
+html[data-theme="dark"] .compare-table td a:not([class]) { color: var(--green-light); }
+/* Source lines (<p class="src">). No stylesheet defined .src, so these links fell back to the
+   browser default #0000EE: 1.85:1 on the dark background, and no gap before the next block.
+   Same link tokens as the prose links above, so both themes stay in step. */
+.src { margin: 12px 0 0; }
+.src a { color: var(--green); text-decoration: underline; text-underline-offset: 2px; }
+.src a:hover { color: var(--cs-blue-hover); }
+html[data-theme="dark"] .src a { color: var(--green-light); }
+/* Per-tab sources: one collapsed line at the end of the tab. Read on a laptop; hidden when
+   projected, because nobody in the room can click a link on the screen. */
+.src-box { margin: 28px 0 8px; border-top: 1px solid var(--border, rgba(127,127,127,.3)); padding-top: 10px; }
+.src-box > summary { cursor: pointer; font-size: .85rem; color: var(--text-muted); list-style-position: inside; }
+.src-box > summary:hover { color: var(--text-heading); }
+.src-box[open] > summary { margin-bottom: 4px; }
+body.presenting .src-box { display: none !important; }
+
+/* ── Status foregrounds that were hardcoded to the LIGHT palette ──────────
+   These page-local components baked #037f0c / #d91515 / #0972d3 rather than
+   reading the --cs-* tokens, so the token fix above could not reach them.
+   Each measured 2.8–3.4:1 on dark. */
+html[data-theme="dark"] .cpg-tag.permit  { color: var(--cs-success); background: rgba(93,217,140,.14); }
+html[data-theme="dark"] .cpg-tag.forbid  { color: var(--cs-error);   background: rgba(255,123,123,.14); }
+html[data-theme="dark"] .cpg-tag.deny    { color: #A3B0C2;           background: rgba(163,176,194,.14); }
+html[data-theme="dark"] .verdict-allow,
+html[data-theme="dark"] .kv b:first-child { color: var(--cs-success); }
+html[data-theme="dark"] .verdict-deny    { color: var(--cs-error); }
+html[data-theme="dark"] .script .line .cue,
+html[data-theme="dark"] .where           { color: var(--green-light); }
+html[data-theme="dark"] .dont .cue       { color: var(--cs-error); }
+html[data-theme="dark"] .nav-badge.capstone { color: #C4B5FD; background: rgba(196,181,253,.14); }
+html[data-theme="dark"] .badge-demo      { color: #FFA94D; background: rgba(255,169,77,.14);
+                                           border-color: rgba(255,169,77,.28); }
+html[data-theme="dark"] .nr-day          { color: var(--text-muted); }
+
+/* Active segmented-control pill: --green is a light blue on dark, so white
+   label text only reached 2.8:1. Dark ink on the light pill instead. */
+html[data-theme="dark"] .kc-switch button.on { color: #06121F; }
+
+/* Security Lab: status text baked to the light palette. The solid-fill pills
+   (.seg button.on) keep #037f0c/#d91515 with white text — those are correct on
+   dark because the fill is opaque. Only the text-on-surface uses needed lifting.
+   Trace verdicts are not listed here: each card drives its own accent from the
+   --cs-* tokens, so overriding it from this file would only fight that. */
+html[data-theme="dark"] .mode-note.protected b { color: var(--cs-success); }
+html[data-theme="dark"] .mode-note.vulnerable b { color: var(--cs-error); }

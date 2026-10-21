@@ -1,0 +1,129 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   Cloudscape iconography — presentation layer for icons.js
+
+   Cloudscape ships icons as 16x16 SVGs that are *unstyled* on their own:
+   the stroke, weight and colour come from CSS. That is deliberate, and it's
+   why these icons inherit the surrounding text colour via currentColor and
+   work in both light and dark themes without duplicate assets.
+
+   Reference: cloudscape.design/foundation/visual-foundation/iconography/
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* ── The icon primitive ── */
+.cs-ico {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  flex-shrink: 0;
+}
+.cs-ico .stroke-linejoin-round { stroke-linejoin: round; }
+.cs-ico .filled                { fill: currentColor; }
+.cs-ico .no-stroke             { stroke: none; }
+
+/* Elements upgraded by icons.js become flex boxes so the SVG centres cleanly
+   and any leftover text node can't nudge it off-centre. */
+.has-cs-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+/* ── Per-slot sizing ─────────────────────────────────────────────────────
+   Each slot previously sized an emoji with font-size; icons are sized
+   explicitly instead so they align on the pixel grid. ── */
+.concept-card .cc-icon .cs-ico { width: 24px; height: 24px; }
+.key-insight  .ki-ico  .cs-ico { width: 22px; height: 22px; }
+.info-card    .card-icon .cs-ico { width: 26px; height: 26px; }
+.domain-card  .dc-ico  .cs-ico { width: 20px; height: 20px; }
+.arc-ico               .cs-ico { width: 20px; height: 20px; }
+.nav-icon              .cs-ico { width: 16px; height: 16px; }
+.nav-list .nav-emoji   .cs-ico { width: 18px; height: 18px; }
+.callout-label         .cs-ico { width: 14px; height: 14px; }
+
+/* Resource / module lists: icons read as affordances, not decoration. */
+.nav-list .nav-emoji { color: #0972D3; }
+.side-nav-panel .nav-icon { color: #5F6B7A; }
+.side-nav-panel a.current .nav-icon,
+.side-nav-panel a.snp-highlight .nav-icon { color: #0972D3; }
+html[data-theme="dark"] .nav-list .nav-emoji { color: #7DB8F0; }
+html[data-theme="dark"] .side-nav-panel .nav-icon { color: #8B97A8; }
+html[data-theme="dark"] .side-nav-panel a.current .nav-icon,
+html[data-theme="dark"] .side-nav-panel a.snp-highlight .nav-icon { color: #7DB8F0; }
+
+/* Inline icons sitting in running text (e.g. split-column headings). */
+.cs-inline {
+  display: inline-flex;
+  vertical-align: -2px;
+  margin-right: 6px;
+}
+.cs-inline .cs-ico { width: 15px; height: 15px; }
+
+/* ── Colour: icons take the accent of the card they sit in ─────────────── */
+.concept-card .cc-icon        { color: #0972D3; }
+.concept-card.blue   .cc-icon { color: #2563EB; }
+.concept-card.violet .cc-icon { color: #8B5CF6; }
+.concept-card.amber  .cc-icon { color: #D97706; }
+.concept-card.green  .cc-icon { color: #0972D3; }
+.concept-card.red    .cc-icon { color: #DC2626; }
+
+.info-card         .card-icon { color: #0972D3; }
+.info-card.card-blue   .card-icon { color: #2563EB; }
+.info-card.card-amber  .card-icon { color: #D97706; }
+.info-card.card-violet .card-icon { color: #8B5CF6; }
+
+.key-insight .ki-ico { color: #0972D3; }
+.domain-card .dc-ico { color: #0972D3; }
+
+/* Status glyphs keep their semantic colour wherever they appear. */
+.cs-ok   { color: #037F51; }
+.cs-warn { color: #D97706; }
+.cs-bad  { color: #D91515; }
+.cs-info { color: #0972D3; }
+
+/* ── Dark theme ───────────────────────────────────────────────────────── */
+html[data-theme="dark"] .concept-card .cc-icon        { color: #7DB8F0; }
+html[data-theme="dark"] .concept-card.blue   .cc-icon { color: #60A5FA; }
+html[data-theme="dark"] .concept-card.violet .cc-icon { color: #A78BFA; }
+html[data-theme="dark"] .concept-card.amber  .cc-icon { color: #FBBF24; }
+html[data-theme="dark"] .concept-card.green  .cc-icon { color: #34D399; }
+html[data-theme="dark"] .concept-card.red    .cc-icon { color: #F87171; }
+
+html[data-theme="dark"] .info-card .card-icon              { color: #7DB8F0; }
+html[data-theme="dark"] .info-card.card-blue   .card-icon  { color: #60A5FA; }
+html[data-theme="dark"] .info-card.card-amber  .card-icon  { color: #FBBF24; }
+html[data-theme="dark"] .info-card.card-violet .card-icon  { color: #A78BFA; }
+
+html[data-theme="dark"] .key-insight .ki-ico { color: #7DB8F0; }
+html[data-theme="dark"] .domain-card .dc-ico { color: #7DB8F0; }
+
+html[data-theme="dark"] .cs-ok   { color: #34D399; }
+html[data-theme="dark"] .cs-warn { color: #FBBF24; }
+html[data-theme="dark"] .cs-bad  { color: #F87171; }
+html[data-theme="dark"] .cs-info { color: #7DB8F0; }
+
+/* ── Top-left navigation cluster (menu / overview buttons) ── */
+.nav-cluster-btn .cs-ico { width: 16px; height: 16px; }
+.side-nav-panel .nav-icon { display: inline-flex; align-items: center; justify-content: center; }
+
+/* ── Theme toggle FAB ── */
+.theme-fab .cs-ico { width: 17px; height: 17px; }
+
+/* Status glyphs injected into dynamic markup (lab verdicts, chat errors)
+   need a little separation from the text that follows them. */
+.cs-ok, .cs-warn, .cs-bad, .cs-info {
+  display: inline-flex;
+  vertical-align: -2px;
+  margin-right: 6px;
+}
+.cs-ok  .cs-ico, .cs-warn .cs-ico, .cs-bad .cs-ico, .cs-info .cs-ico { width: 14px; height: 14px; }
+svg.cs-ico.cs-ok, svg.cs-ico.cs-warn, svg.cs-ico.cs-bad, svg.cs-ico.cs-info {
+  display: inline-block;
+  width: 14px; height: 14px;
+  vertical-align: -2px;
+  margin-right: 6px;
+}

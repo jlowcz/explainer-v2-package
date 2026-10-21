@@ -1,0 +1,264 @@
+/* ──────────────────────────────────────────────────────────────────
+   Top-Left Navigation Cluster — shared across all explainer pages
+   Renders: [☰ Menu] [⌂ Workshop Home]
+   The ☰ button opens the slide-out side panel; the home pill links
+   directly to index.html. Both are fixed top-left so they stay in
+   reach as the user scrolls.
+   ────────────────────────────────────────────────────────────────── */
+.nav-cluster {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 210;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-cluster-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.92);
+  border: 1.5px solid rgba(15,23,42,.10);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0F172A;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .2s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  white-space: nowrap;
+}
+.nav-cluster-btn:hover {
+  background: rgba(5,150,105,.06);
+  border-color: rgba(5,150,105,.40);
+  color: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(5,150,105,.10);
+}
+.nav-cluster-btn:active { transform: translateY(0); }
+
+/* Both pills are icon-only square buttons (consistent with the theme toggle) */
+.nav-cluster-btn.is-toggle,
+.nav-cluster-btn.is-home {
+  width: 36px;
+  padding: 0;
+  justify-content: center;
+  font-size: 17px;
+}
+.nav-cluster-btn.is-toggle.open {
+  background: #059669;
+  border-color: #059669;
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .nav-cluster { top: 10px; left: 10px; gap: 4px; }
+  .nav-cluster-btn { height: 32px; }
+  .nav-cluster-btn.is-toggle,
+  .nav-cluster-btn.is-home { width: 32px; font-size: 15px; }
+}
+
+/* Dark theme — flip the cluster surface */
+html[data-theme="dark"] .nav-cluster-btn {
+  background: rgba(17,26,46,.85);
+  border-color: rgba(255,255,255,.10);
+  color: #F1F5F9;
+  box-shadow: 0 2px 8px rgba(0,0,0,.30);
+}
+html[data-theme="dark"] .nav-cluster-btn:hover {
+  background: rgba(52,211,153,.14);
+  border-color: rgba(52,211,153,.40);
+  color: #6EE7B7;
+  box-shadow: 0 4px 12px rgba(52,211,153,.20);
+}
+html[data-theme="dark"] .nav-cluster-btn.is-toggle.open {
+  background: #10B981;
+  border-color: #10B981;
+  color: #0A0F1E;
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Slide-out Side Navigation Panel
+   Opens from the left when ☰ is clicked. Lists every explainer.
+   ────────────────────────────────────────────────────────────────── */
+.side-nav-panel {
+  position: fixed;
+  left: -260px;
+  top: 0;
+  bottom: 0;
+  width: 260px;
+  background: #FFFFFF;
+  border-right: 1.5px solid #E2E8F0;
+  z-index: 199;
+  transition: left .35s cubic-bezier(.4,0,.2,1);
+  overflow-y: auto;
+  padding: 64px 0 24px;  /* leave room for the cluster at top */
+  box-shadow: 4px 0 20px rgba(0,0,0,.06);
+}
+.side-nav-panel.open { left: 0; }
+
+.snp-header {
+  padding: 8px 18px 14px;
+  border-bottom: 1px solid #E2E8F0;
+}
+.snp-header .snp-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F172A;
+}
+.snp-header .snp-sub {
+  display: block;
+  font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace;
+  font-size: 10px;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 4px;
+}
+
+.snp-section-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #94A3B8;
+  padding: 14px 18px 6px;
+}
+
+.snp-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.snp-list li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #334155;
+  text-decoration: none;
+  transition: all .2s ease;
+  border-left: 3px solid transparent;
+}
+.snp-list li a:hover {
+  color: #059669;
+  background: rgba(5,150,105,.04);
+  border-left-color: rgba(5,150,105,.3);
+}
+.snp-list li a.current {
+  color: #059669;
+  background: rgba(5,150,105,.06);
+  border-left-color: #059669;
+  font-weight: 600;
+}
+/* Quick-access "do this first" link — subtle gradient tint so it stands out
+   in the side panel without shouting. Used on the Lab Access entry. */
+.snp-list li a.snp-highlight {
+  background: linear-gradient(90deg, rgba(5,150,105,.08), rgba(16,185,129,.02) 80%);
+  border-left-color: rgba(5,150,105,.4);
+  color: #047857;
+  font-weight: 600;
+}
+.snp-list li a.snp-highlight:hover {
+  background: linear-gradient(90deg, rgba(5,150,105,.14), rgba(16,185,129,.04) 80%);
+  border-left-color: #059669;
+  color: #059669;
+}
+html[data-theme="dark"] .snp-list li a.snp-highlight {
+  background: linear-gradient(90deg, rgba(52,211,153,.10), rgba(52,211,153,.02) 80%);
+  border-left-color: rgba(52,211,153,.45);
+  color: #6EE7B7;
+}
+html[data-theme="dark"] .snp-list li a.snp-highlight:hover {
+  background: linear-gradient(90deg, rgba(52,211,153,.18), rgba(52,211,153,.04) 80%);
+  border-left-color: #34D399;
+  color: #A7F3D0;
+}
+.snp-list li a .nav-icon {
+  font-size: 15px;
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
+.snp-divider {
+  height: 1px;
+  background: #E2E8F0;
+  margin: 8px 18px;
+}
+
+/* Soft scrim behind the open panel — closes on click */
+.side-nav-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,.20);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+  z-index: 198;
+}
+.side-nav-scrim.open { opacity: 1; pointer-events: auto; }
+
+/* ──────────────────────────────────────────────────────────────────
+   Collapsible day groups (Day 1 / Day 2)
+   The toggle reuses .snp-section-label for colour + type (incl. dark
+   theme), and adds a flex layout + a rotating chevron.
+   ────────────────────────────────────────────────────────────────── */
+.snp-group-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+.snp-group-toggle:hover { color: #059669; }
+.snp-group-toggle .snp-chevron {
+  font-size: 11px;
+  line-height: 1;
+  opacity: .75;
+  transition: transform .25s ease;
+}
+.snp-group-toggle.expanded .snp-chevron { transform: rotate(90deg); }
+.snp-group.collapsed { display: none; }
+html[data-theme="dark"] .snp-group-toggle:hover { color: #6EE7B7; }
+
+/* A module with no page yet (or a slide-led one): same row shape as a link,
+   muted, not clickable. Status goes in the pill, not in dimming the text. */
+.snp-list li .snp-off {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  border-left: 3px solid transparent;
+  cursor: default;
+}
+.snp-list li .snp-off em {
+  margin-left: auto;
+  flex: none;
+  font-style: normal;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  padding: 1px 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+}

@@ -1,0 +1,337 @@
+/* ════════════════════════════════════════════════════════════════════
+   explainer.css — base (light) styles for the module explainer pages.
+   Pairs with style.css, which supplies the dark-theme overrides for
+   these same class names (.section-nav, .concept-card, .callout, etc.).
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ── Sticky section pill nav ── */
+.section-nav {
+  position: sticky; top: 0; z-index: 90;
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 12px 0;
+  background: rgba(248,249,251,.92);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+.section-nav button {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px; font-weight: 600;
+  padding: 8px 15px; border-radius: 999px;
+  background: var(--bg-white); border: 1px solid var(--border);
+  color: var(--text-muted); cursor: pointer;
+  transition: all .2s var(--ease);
+}
+.section-nav button:hover { border-color: var(--border-hover); color: var(--green); }
+.section-nav button.active {
+  background: var(--gradient-green); color: #fff; border-color: transparent;
+  box-shadow: 0 2px 12px rgba(9,114,211,.28);
+}
+
+/* ── Concept cards ── */
+.concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 18px; margin: 20px 0; }
+.concept-card {
+  background: linear-gradient(145deg, #F0F7FF 0%, #FFFFFF 60%);
+  border: 1.5px solid rgba(9,114,211,.14);
+  border-radius: 16px; padding: 22px;
+  position: relative; overflow: hidden;
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s ease;
+}
+.concept-card::after {
+  content: ''; position: absolute; bottom: -30px; right: -30px;
+  width: 100px; height: 100px;
+  background: radial-gradient(circle, rgba(9,114,211,.05) 0%, transparent 70%);
+  border-radius: 50%; pointer-events: none;
+}
+.concept-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(9,114,211,.10); border-color: rgba(9,114,211,.28); }
+.concept-card .cc-icon {
+  font-size: 24px; width: 48px; height: 48px; border-radius: 12px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(9,114,211,.08); margin-bottom: 12px;
+}
+.concept-card h4 { font-family: 'Open Sans', sans-serif; font-size: 15.5px; color: var(--text-heading); margin: 0 0 8px; font-weight: 700; }
+.concept-card p { font-size: 13.5px; color: var(--text-body); margin: 0; line-height: 1.65; }
+.concept-card p + p { margin-top: 8px; }
+
+/* Colour variants */
+.concept-card.blue   { background: linear-gradient(145deg, #EFF6FF 0%, #FFFFFF 60%); border-color: rgba(37,99,235,.14); }
+.concept-card.blue .cc-icon   { background: rgba(37,99,235,.08); }
+.concept-card.violet { background: linear-gradient(145deg, #F5F3FF 0%, #FFFFFF 60%); border-color: rgba(139,92,246,.14); }
+.concept-card.violet .cc-icon { background: rgba(139,92,246,.08); }
+.concept-card.amber  { background: linear-gradient(145deg, #FFFBEB 0%, #FFFFFF 60%); border-color: rgba(217,119,6,.14); }
+.concept-card.amber .cc-icon  { background: rgba(217,119,6,.08); }
+.concept-card.green  { background: linear-gradient(145deg, #EFF6FF 0%, #FFFFFF 60%); border-color: rgba(9,114,211,.14); }
+.concept-card.green .cc-icon  { background: rgba(9,114,211,.08); }
+.concept-card.red    { background: linear-gradient(145deg, #FEF2F2 0%, #FFFFFF 60%); border-color: rgba(220,38,38,.14); }
+.concept-card.red .cc-icon    { background: rgba(220,38,38,.08); }
+
+/* ── Callouts ── */
+.callout {
+  border-radius: 12px; padding: 16px 20px; margin: 18px 0;
+  border: 1px solid rgba(9,114,211,.20);
+  background: rgba(9,114,211,.05);
+  color: var(--text-body); font-size: 14px; line-height: 1.7;
+}
+.callout .callout-label {
+  display: block; font-family: 'Open Sans', sans-serif; font-weight: 700;
+  font-size: 12px; letter-spacing: .5px; text-transform: uppercase;
+  color: var(--green); margin-bottom: 6px;
+}
+.callout strong { color: var(--text-heading); }
+/* `.co-list` — a callout whose body is a lead sentence, a short bullet list of
+   obligations, and a closing note, for a set of items the instructor reads off
+   one at a time (a run-on "(1)…(2)…(3)" sentence is unreadable on camera).
+   Deliberately scoped to the modifier and not to `.callout p`: several callouts
+   in security-lab-guide.html are plain multi-paragraph bodies relying on the
+   UA's 1em paragraph margins, and a global rule here flattens them. */
+.callout.co-list > p { margin: 0; }
+.callout.co-list > ul { margin: 10px 0 0; padding-left: 20px; }
+.callout.co-list > ul li { margin: 0; }
+.callout.co-list > ul li + li { margin-top: 6px; }
+.callout.co-list > ul + p { margin-top: 10px; }
+.callout.blue   { background: rgba(37,99,235,.06);  border-color: rgba(37,99,235,.22); }
+.callout.blue .callout-label   { color: #2563EB; }
+.callout.amber  { background: rgba(217,119,6,.07);  border-color: rgba(217,119,6,.25); }
+.callout.amber .callout-label  { color: #D97706; }
+.callout.red    { background: rgba(220,38,38,.06);  border-color: rgba(220,38,38,.25); }
+.callout.red .callout-label    { color: #DC2626; }
+.callout.violet { background: rgba(139,92,246,.06); border-color: rgba(139,92,246,.25); }
+.callout.violet .callout-label { color: #7C3AED; }
+
+/* ── Key-insight banner ── */
+.key-insight {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: linear-gradient(135deg, #EFF6FF, #F2F8FD);
+  border: 1px solid rgba(9,114,211,.18);
+  border-radius: 12px; padding: 16px 20px; margin: 20px 0;
+}
+.key-insight .ki-ico { font-size: 22px; flex-shrink: 0; }
+.key-insight p { margin: 0; font-size: 14px; color: var(--text-body); }
+.key-insight strong { color: var(--green); }
+
+/* ── Code blocks (dark in both themes — style.css keeps them dark) ── */
+.code-block {
+  background: #0F172A; color: #E2E8F0;
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 18px 20px; margin: 16px 0;
+  font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.7;
+  overflow-x: auto; white-space: pre;
+}
+.code-block .c-key { color: #93C5FD; }
+.code-block .c-str { color: #6EE7B7; }
+/* Code blocks are dark in BOTH themes, so this needs one value that clears AA
+   on the dark block surface. #64748B measured 3.75:1 on #0F172A. */
+.code-block .c-cmt { color: #8C9BB0; font-style: italic; }
+.code-label {
+  font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace; font-size: 10.5px; font-weight: 600;
+  letter-spacing: .5px; text-transform: uppercase; color: var(--text-muted);
+  margin: 16px 0 -6px;
+}
+
+/* ── Compare table ── */
+.compare-table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 16px 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+.compare-table th { background: var(--bg-hero); color: #fff; padding: 11px 15px; text-align: left; font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; }
+.compare-table td { padding: 11px 15px; border-top: 1px solid var(--border); font-size: 13.5px; color: var(--text-body); vertical-align: top; }
+.compare-table tr:hover td { background: var(--green-glow); }
+
+/* ── Split responsibility columns ── */
+.split-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+@media (max-width: 720px){ .split-2 { grid-template-columns: 1fr; } }
+.split-col { border-radius: 14px; padding: 20px; border: 1px solid var(--border); }
+.split-col h4 { font-family: 'Open Sans', sans-serif; font-size: 14px; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+.split-col ul { margin: 0 0 0 4px; padding: 0; list-style: none; }
+.split-col li { font-size: 13.5px; padding: 6px 0 6px 22px; position: relative; color: var(--text-body); }
+.split-col li::before { content: '▹'; position: absolute; left: 0; color: currentColor; opacity: .6; }
+.split-col.aws  { background: linear-gradient(145deg, #EFF6FF 0%, #FFFFFF 65%); border-color: rgba(37,99,235,.18); }
+.split-col.aws h4  { color: #2563EB; }
+.split-col.you  { background: linear-gradient(145deg, #FFF4EC 0%, #FFFFFF 65%); border-color: rgba(236,114,17,.20); }
+.split-col.you h4  { color: #EC7211; }
+
+/* ── Pipeline / flow chips ── */
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px; margin: 20px 0; }
+.flow-step {
+  flex: 1 1 150px; min-width: 140px;
+  background: var(--bg-white); border: 1px solid var(--border); border-radius: 12px;
+  padding: 14px 16px; position: relative;
+}
+.flow-step .fs-n { font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace; font-size: 11px; font-weight: 700; color: var(--green); }
+.flow-step h5 { font-family: 'Open Sans', sans-serif; font-size: 13.5px; margin: 4px 0 4px; color: var(--text-heading); }
+.flow-step p { font-size: 12px; color: var(--text-muted); margin: 0; line-height: 1.5; }
+.flow-arrow { align-self: center; color: var(--text-dim); font-weight: 800; font-size: 18px; }
+@media (max-width: 640px){ .flow-arrow { transform: rotate(90deg); } }
+
+/* ── Domain badge (which surface a section covers) ── */
+.surface-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--green-glow); color: var(--green);
+  font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace; font-size: 10.5px; font-weight: 600;
+  letter-spacing: .4px; padding: 4px 11px; border-radius: 999px;
+  border: 1px solid rgba(9,114,211,.18); margin-bottom: 10px;
+}
+
+/* ── Prev / next page nav ── */
+.page-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--border); }
+.page-nav a { color: var(--green); text-decoration: none; font-size: 14px; font-weight: 600; padding: 12px 18px; border-radius: 10px; background: var(--green-glow); border: 1px solid rgba(9,114,211,.14); transition: all .25s var(--ease); max-width: 48%; }
+.page-nav a:hover { background: var(--green-glow-strong); border-color: var(--border-hover); }
+.page-nav a.nav-prev::before { content: '← '; }
+.page-nav a.nav-next::after { content: ' →'; }
+.page-nav .pn-label { display: block; font-size: 11px; color: var(--text-muted); font-weight: 500; margin-bottom: 2px; }
+.page-nav a.nav-next { text-align: right; margin-left: auto; }
+
+/* ── Sources footer ── */
+.sources {
+  margin-top: 28px; padding: 20px 22px; border-radius: 12px;
+  background: var(--bg-white); border: 1px solid var(--border);
+}
+.sources h4 { font-family: 'Open Sans', sans-serif; font-size: 13px; text-transform: uppercase; letter-spacing: .6px; color: var(--text-muted); margin: 0 0 10px; }
+.sources ul { margin: 0; padding-left: 18px; }
+.sources li { font-size: 12.5px; color: var(--text-muted); margin-bottom: 5px; line-height: 1.55; }
+.sources a { color: var(--green); text-decoration: none; }
+.sources a:hover { text-decoration: underline; }
+
+/* ── Inline code ── */
+code { background: rgba(9,114,211,.08); color: #0972D3; font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace; font-size: 90%; padding: 2px 6px; border-radius: 5px; }
+
+/* Section-scoped panels */
+.panel { display: none; }
+.panel.active { display: block; animation: fadeInUp .4s var(--ease) both; }
+
+/* ── Sub-heading within a panel ── */
+.sub-head { font-family: 'Open Sans', sans-serif; font-size: 16px; font-weight: 700; color: var(--text-heading); margin: 26px 0 4px; }
+
+/* ── Module tag inside concept cards (global; index.html styles its own copy inline) ── */
+.concept-card .dc-mod { font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace; font-size: 10.5px; color: var(--green); font-weight: 600; }
+
+/* ── "demoed" pill next to a heading ── */
+.badge-demo {
+  font-family: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace; font-size: 9.5px; font-weight: 700;
+  letter-spacing: .4px; text-transform: uppercase;
+  color: #EC7211; background: rgba(236,114,17,.10);
+  border: 1px solid rgba(236,114,17,.22); border-radius: 999px;
+  padding: 2px 8px; margin-left: 6px; vertical-align: middle;
+}
+
+/* ══ Behaviour-figure chrome (`.fg`) ═════════════════════════════════════════
+   Shared container, control bar, Off/On switch, recessed box, raised chip,
+   dashed connector and verdict pill for the interactive figures described in
+   `.kiro/skills/interactive-explainer/behaviour-figures.md`. Each figure only
+   has to describe its own layout on top of this.
+
+   Lifted here from `m2-identity.html` when M3 became the third module to want
+   it — the trigger named in that skill's §7. The driver lives in `figures.js`.
+   Page-local figure CSS (`.jw`, `.mv`, `.eg`, …) stays on its page: it is
+   layout for one idea and does not generalise.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.fg { --mono: 'JetBrains Mono', Monaco, Menlo, Consolas, monospace;
+  border: 1px solid var(--border); border-radius: 16px; background: var(--bg-white);
+  padding: 16px 18px 14px; margin: 18px 0 20px; overflow-x: auto; }
+.fg-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 11px; }
+.fg-lbl { font-family: var(--mono); font-size: 8.5px; font-weight: 700; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--text-muted); }
+
+/* Beat control — auto-play is the default, but the narrator must be able to
+   hold a frame, so every timed figure gets these. */
+.fg-dots { display: flex; gap: 5px; }
+.fg-dot { width: 24px; height: 8px; padding: 0; border-radius: 4px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--bg-white);
+  transition: background .25s var(--ease), border-color .25s var(--ease); }
+.fg-dot:hover { border-color: var(--border-hover); }
+.fg-dot.on { background: var(--green); border-color: var(--green); }
+.fg-play { margin-left: auto; cursor: pointer; font-family: var(--mono); font-size: 9px;
+  font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 7px; border: 1px solid var(--border);
+  background: var(--bg-white); color: var(--text-muted);
+  transition: color .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease); }
+.fg-play:hover { color: var(--green); border-color: var(--green); background: var(--green-glow); }
+
+/* Off/On switch — solid accent fill marks the active choice (highest importance) */
+.fg-sw { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.fg-sw button { appearance: none; border: 0; cursor: pointer; font-family: inherit;
+  font-size: 11.5px; font-weight: 600; padding: 5px 13px;
+  background: var(--bg-white); color: var(--text-body);
+  transition: background .2s var(--ease), color .2s var(--ease); }
+.fg-sw button + button { border-left: 1px solid var(--border); }
+.fg-sw button:hover:not(.on) { background: var(--green-glow); color: var(--green); }
+.fg-sw button.on { background: var(--green); color: #fff; }
+
+/* Fill hierarchy: recessed box holds raised chips. Both were --bg-white once,
+   which in dark is the same colour on itself and turned every box invisible. */
+.fg-box { display: flex; flex-direction: column; gap: 5px; min-width: 0;
+  padding: 10px 11px 11px; border: 1.5px solid var(--border); border-radius: 11px;
+  background: var(--bg);
+  transition: border-color .3s var(--ease), background .3s var(--ease); }
+.fg-chip { font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: -.2px;
+  padding: 5px 8px; border-radius: 7px; border: 1px solid var(--border);
+  background: var(--bg-white); color: var(--text-body);
+  transition: color .3s var(--ease), border-color .3s var(--ease),
+              background .3s var(--ease), transform .3s var(--ease); }
+
+/* Connector — ambient motion lives here, never on the nodes */
+.fg-arr { flex: none; align-self: center; width: 26px; height: 2px; position: relative;
+  margin: 0 3px; color: var(--text-dim); opacity: .3;
+  background-image: linear-gradient(90deg, currentColor 55%, transparent 55%);
+  background-size: 8px 2px; background-repeat: repeat-x;
+  transition: color .3s var(--ease), opacity .3s var(--ease); }
+.fg-arr::after { content: ''; position: absolute; right: -2px; top: 50%;
+  transform: translateY(-50%); width: 0; height: 0;
+  border-left: 7px solid currentColor;
+  border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+.fg-arr.on { opacity: 1; color: var(--green); animation: fgDash .55s linear infinite; }
+.fg-arr.on.bad { color: var(--cs-error); }
+@keyframes fgDash { to { background-position: 8px 0; } }
+
+/* Verdict pill. Red `deny` is conventional for "blocked" even when being
+   blocked is the desired outcome — the narration line carries the valence. */
+.fg-verd { align-self: flex-start; opacity: 0; transform: scale(.85); transform-origin: left center;
+  font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: .04em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 6px; border: 1px solid transparent;
+  white-space: nowrap;
+  transition: opacity .3s var(--ease), transform .3s var(--ease); }
+.fg-verd.show { opacity: 1; transform: none; }
+.fg-verd.allow { color: var(--cs-success); border-color: var(--cs-success); background: var(--cs-success-bg); }
+.fg-verd.deny  { color: var(--cs-error);   border-color: var(--cs-error);   background: var(--cs-error-bg); }
+.fg-verd.warn  { color: var(--cs-warning); border-color: var(--cs-warning); background: var(--cs-warning-bg); }
+
+/* Narration line — two classes so it outranks `.section p` (0,1,1) */
+.section .fg-say { font-size: 12.5px; line-height: 1.6; color: var(--text-body);
+  margin: 12px 0 0; padding-top: 11px; border-top: 1px solid var(--border); }
+.section .fg-say b { color: var(--text-heading); }
+.section .fg-hint { font-family: var(--mono); font-size: 9.5px; color: var(--text-muted);
+  margin: 11px 0 0; padding-top: 10px; border-top: 1px solid var(--border); }
+
+/* Normal-view type scale (16 Oct 2026, Welly: text under and beside the diagrams was too small).
+   Scoped to `body:not(.presenting)` on purpose: present mode zooms plain .fg by 1.58 and carries
+   its own sizes, and it was signed off as it is. Do not move these into the base rules above. */
+body:not(.presenting) .fg-lbl { font-size: 11px; }
+body:not(.presenting) .fg-play { font-size: 11px; }
+body:not(.presenting) .fg-verd { font-size: 11px; }
+body:not(.presenting) .section .fg-say { font-size: 15px; }
+body:not(.presenting) .section .fg-hint { font-size: 11.5px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fg-arr.on { animation: none; }
+  .fg-box, .fg-chip, .fg-arr, .fg-verd, .fg-sw button { transition: none; }
+}
+/* Present mode scales `.section p`, so a figure has to scale with it or the
+   prose outgrows the diagram it explains. `zoom` keeps 1px borders and the
+   arrowheads proportional; the say/hint resets stop the bump compounding.
+   Fixed value tuned for the recording monitor (1920x1080 external) rather
+   than a responsive ladder — recording target is a known constant, so a
+   MacBook rehearsal window at a different width no longer renders at a
+   different size than the recording. */
+@supports (zoom: 1) {
+  body.presenting .fg { zoom: 1.58; }
+  body.presenting .fg .fg-say { font-size: 12.5px; }
+  body.presenting .fg .fg-hint { font-size: 9.5px; }
+}
+
+/* ── Card rows (.card-grid > .ex-card) ─────────────────────────────────────
+   Used on every module page; until Oct 2026 nothing styled them, so they
+   rendered as plain stacked text. Flat Cloudscape card, 1px border. */
+.card-grid { display: grid; gap: 14px; margin: 12px 0; }
+.card-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.card-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 860px) { .card-grid.two, .card-grid.three { grid-template-columns: 1fr; } }
+.ex-card { padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-white); }
+.ex-card h4 { display: flex; align-items: center; gap: 8px; margin: 0 0 6px; font-size: 14.5px; color: var(--text-heading); }
+.ex-card p { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--text-body); }

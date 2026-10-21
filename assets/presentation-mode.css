@@ -1,0 +1,270 @@
+/* ─────────────────────────────────────────────────────────────
+   presentation-mode.css — projector / "present" experience for
+   explainer pages. Pairs with presentation-mode.js (self-injecting).
+   On-brand with the AI-Glass dark + emerald identity.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Launch button (floating) ── */
+.present-fab{
+  position:fixed; top:18px; right:70px; z-index:300;
+  width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  border:1.5px solid rgba(255,255,255,.18);
+  background:rgba(12,19,34,.65);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  color:#34D399; cursor:pointer;
+  box-shadow:0 4px 16px rgba(0,0,0,.18);
+  transition:transform .25s cubic-bezier(.4,0,.2,1), border-color .25s ease, box-shadow .25s ease;
+}
+.present-fab:hover{ transform:scale(1.06); border-color:rgba(52,211,153,.5); box-shadow:0 6px 22px rgba(0,0,0,.30); }
+.present-fab:active{ transform:scale(.98); }
+.present-fab:focus-visible{ outline:2px solid #A7F3D0; outline-offset:2px; }
+.present-fab svg{ width:18px; height:18px; display:block; margin-left:2px; }
+/* Light theme — mirror the theme toggle's colour flip */
+html:not([data-theme="dark"]) .present-fab{
+  background:rgba(255,255,255,.92); border-color:rgba(15,23,42,.10); color:#059669;
+  box-shadow:0 4px 16px rgba(0,0,0,.06);
+}
+html:not([data-theme="dark"]) .present-fab:hover{ border-color:rgba(5,150,105,.35); }
+body.presenting .present-fab{ display:none; }
+
+/* ── Hide ALL chrome while presenting ──
+   Nothing floats over the slide: no control dock, no footer nav, no rail.
+   .page-nav is the Previous / Next-module strip at the foot of each explainer —
+   on a projector it's dead weight and invites a mis-click out of the deck.
+   ← / → move between section tabs, Esc leaves. */
+body.presenting .theme-fab,
+body.presenting .nav-cluster,
+body.presenting .side-nav-panel,
+body.presenting .side-nav-scrim,
+body.presenting .nav-rail,
+body.presenting .nr-crumb,
+body.presenting .page-nav,
+body.presenting .sources,
+body.presenting .footer{ display:none !important; }
+
+/* Rail may have left body.rail-active set — force the real tabs back. */
+body.presenting .section-nav button,
+body.presenting .tab-nav button{
+  opacity:1 !important; pointer-events:auto !important; transform:none !important;
+}
+
+/* ── Full-bleed projector layout: fill the screen, don't sit in a column ── */
+/* Pages wrap content either in .container (M1–M3 style) or directly in
+   .explainer-section tab panels (automation-stack, skills, etc.). Both are
+   width-capped + centered by default; force both to full-bleed in present mode. */
+/* Bottom padding is just breathing room now — no dock to clear. */
+body.presenting .container,
+body.presenting .explainer-section{
+  max-width:none !important;
+  width:100%;
+  margin:0;
+  /* Compact vertical padding for the projector: the reading view uses 24/56
+     to breathe, but on a fixed 1080-tall slide those 80 pixels are the
+     difference between a section fitting and overflowing. Horizontal padding
+     stays generous because it just gutters the content. */
+  padding:10px clamp(40px,5.5vw,150px) 16px;
+}
+/* Module pages: `.section-nav` in explainer.css uses padding:12px 0 and
+   margin-bottom:24px, which is fine for the reading view but 30+ pixels of
+   dead space on a slide. Compact it in present mode; the buttons keep their
+   own padding via the existing rule below. */
+body.presenting .section-nav {
+  padding: 4px 0;
+  margin-bottom: 12px;
+}
+/* Same reasoning for the sub-nav strip: its default padding of 8px top+bottom
+   plus a 20px margin below adds ~36px above the slide. Trim to a slim band. */
+body.presenting .pm-subnav {
+  padding: 5px 40px;
+  margin-bottom: 8px;
+}
+/* Compact the hero so the first section shows with little/no scroll */
+body.presenting .hero,
+body.presenting .module-hero{ padding-top:38px; padding-bottom:26px; }
+body.presenting .hero h1,
+body.presenting .module-hero h1{ font-size:clamp(34px,4.6vw,60px); line-height:1.12; }
+body.presenting .hero .subtitle,
+body.presenting .hero .mod-subtitle,
+body.presenting .module-hero .mod-subtitle{ font-size:clamp(16px,1.7vw,24px); max-width:min(1100px,80vw); }
+
+/* Bigger tabs + body copy for the back of the room */
+body.presenting .section-nav button,
+body.presenting .tab-nav button{ font-size:16px; padding:11px 22px; }
+body.presenting .explainer-section p,
+body.presenting .explainer-section li,
+body.presenting .card p,
+body.presenting .card li,
+body.presenting .section p,
+body.presenting .section li{ font-size:clamp(16px,1.15vw,21px); line-height:1.7; }
+/* `.section h2` (descendant, not child): with .pm-slide wrappers on module
+   pages, the panel's h2 is a grandchild of .section rather than a direct
+   child, so the child combinator missed it and the title rendered at body
+   size. Descendant is safe — module panels only use h2 for the panel title. */
+body.presenting .explainer-section h2,
+body.presenting .card h2,
+body.presenting .section h2{ font-size:clamp(22px,2.1vw,34px); }
+body.presenting .explainer-section h4,
+body.presenting .section h4,
+body.presenting .concept-card h3,
+body.presenting .concept-card h4,
+body.presenting .card h3,
+body.presenting .card h4{ font-size:clamp(17px,1.45vw,24px); line-height:1.3; }
+/* Section subtitles (h3) get their own heading tier — clearly larger than the
+   body copy (clamp 16->21) and sitting just below the h2 title (clamp 22->34),
+   so a subtitle like "The attack surface expands in a chain" reads as a real
+   heading on a projector rather than blending into the paragraph text. */
+body.presenting .explainer-section h3,
+body.presenting .section h3{ font-size:clamp(21px,1.9vw,29px); line-height:1.25; }
+
+/* Wider viewport means grids can breathe and fill the space */
+body.presenting .concept-grid{ gap:22px; }
+
+/* No control dock: present mode is chrome-free by design. Section tabs are
+   driven by ← / → (see presentation-mode.js) and Esc leaves, so nothing
+   overlays the slide and the screen recording is clean edge to edge. */
+
+@media (prefers-reduced-motion: reduce){
+  .present-fab{ transition:none; }
+}
+@media (max-width:640px){
+  .present-fab{ top:12px; right:58px; width:38px; height:38px; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Sticky module title while presenting.
+   Pin the hero (module title) to the top so it stays visible as the
+   section content scrolls beneath it. The top section tabs stop being
+   sticky in present mode — the control dock (dots / arrow keys) drives
+   section navigation there — so the pinned title and the tabs don't
+   collide. The hero's navy background is opaque, so content scrolls
+   cleanly behind it.
+   ───────────────────────────────────────────────────────────── */
+body.presenting .module-hero,
+body.presenting .hero {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+}
+/* Compact the pinned band a touch and drop the secondary bits so the
+   title stays prominent without eating the slide. */
+body.presenting .module-hero { padding-top: 22px; padding-bottom: 16px; }
+body.presenting .module-hero .back-link,
+body.presenting .module-hero .module-duration,
+body.presenting .module-hero .mod-subtitle,
+body.presenting .hero .subtitle { display: none; }
+body.presenting .module-hero h1,
+body.presenting .hero h1 { margin-bottom: 0; }
+
+/* Sub-menu (section tabs) also stays pinned — as a slim agenda strip
+   directly beneath the title. presentation-mode.js measures the pinned
+   title height and exposes it as --pm-hero-h so the tabs sit exactly
+   below it at any viewport width (no overlap, no magic numbers). */
+/* `.tab-nav` is the same strip on the course landing page (index.html). It
+   already sets its own sticky `top` inline via setHeroOffset(), which is
+   suppressed while presenting so --pm-hero-h drives it here instead. */
+body.presenting .section-nav,
+body.presenting .tab-nav {
+  position: sticky;
+  top: var(--pm-hero-h, 0px);
+  z-index: 55;                       /* below the title (60), above content */
+  background: #f2f3f3;               /* opaque so content scrolls cleanly under */
+  border-bottom: 1px solid var(--border, #e9ebed);
+  box-shadow: 0 2px 8px rgba(0,7,22,.06);
+  margin-bottom: 20px;
+}
+html[data-theme="dark"] body.presenting .section-nav,
+html[data-theme="dark"] body.presenting .tab-nav { background: var(--bg, #0F1B2D); }
+/* Compact the pinned tabs so the title + agenda together stay slim */
+body.presenting .section-nav button,
+body.presenting .tab-nav button { font-size: 14px; padding: 8px 16px; }
+
+/* ─────────────────────────────────────────────────────────────
+   Sections as slides.
+   In present mode, only ONE section inside the active tab is on
+   screen at a time — the one carrying .pm-current. Off-projector
+   the sections stack normally; only body.presenting flips them
+   into a slide deck. The `active` guard is important: it prevents
+   both a hidden tab's section AND the pinned hero/tabs from being
+   affected (they're not .tab-panel > .section). presentation-mode.js
+   owns which section holds .pm-current.
+   ───────────────────────────────────────────────────────────── */
+body.presenting .tab-panel.active > .section { display: none; }
+body.presenting .tab-panel.active > .section.pm-current { display: block; }
+/* Module pages: authors wrap groups of blocks in <div class="pm-slide">…</div>
+   inside a panel's .section, and present mode walks them one at a time. Off
+   the projector the wrapper is transparent to layout (display: contents),
+   which means wrapping does NOT add spacing or break the existing margin
+   rules between the section's children. A panel without wrappers falls back
+   to "one slide per panel" — see buildSlideModel in presentation-mode.js. */
+.pm-slide { display: contents; }
+body.presenting .panel.active .section > .pm-slide { display: none; }
+body.presenting .panel.active .section > .pm-slide.pm-current { display: block; }
+
+/* Notes / asides the author does not want on the projector: visible in normal
+   reading view, omitted while presenting. Author adds `pm-hide` to any block
+   — a callout, a paragraph, a whole slide — that shouldn't distract on camera. */
+body.presenting .pm-hide { display: none !important; }
+
+/* ─────────────────────────────────────────────────────────────
+   Scroll mode: the "long form" projector view.
+   In slide mode present-mode.js hides all sections except the current
+   .pm-current. In scroll mode we override that so every section and every
+   .pm-slide (including anything marked .pm-hide) flows on one page and
+   the presenter scrolls at their own pace. Same present-mode type sizes,
+   same chrome hiding — just no forced pagination.
+   Toggled by the L key inside present mode; see bindKeys in
+   presentation-mode.js.
+   ───────────────────────────────────────────────────────────── */
+body.presenting.pm-scroll .tab-panel.active > .section { display: block; }
+body.presenting.pm-scroll .panel.active .section > .pm-slide { display: contents; }
+/* Higher specificity than `body.presenting .pm-hide` (both have 3 tuples,
+   but .pm-scroll adds a class so this wins on order). display: revert
+   returns pm-hide wrappers to their natural display: for a .pm-slide
+   wrapper that's `contents` (from the base rule); for a bare .pm-hide
+   block that's the element default. */
+body.presenting.pm-scroll .pm-hide { display: revert !important; }
+body.presenting.pm-scroll .pm-subnav { display: none !important; }
+
+/* ─────────────────────────────────────────────────────────────
+   Sub-nav strip: position within the current tab.
+   Injected by presentation-mode.js immediately after the tab strip,
+   so it stacks in a single sticky column: hero (--pm-hero-h) →
+   tab-nav (--pm-tabnav-h) → sub-nav. Off-projector it stays hidden.
+   Only shows when the current tab has more than one section, so
+   single-section tabs (Modules / Security Domains / Resources on
+   index; every tab on module pages) don't get an empty strip.
+   Dots follow the .fg-dot look from explainer.css so this reads
+   as part of the same system, without needing that stylesheet
+   loaded on index.html.
+   ───────────────────────────────────────────────────────────── */
+.pm-subnav { display: none; }
+body.presenting .pm-subnav {
+  display: flex; gap: 6px; align-items: center; justify-content: center;
+  position: sticky;
+  top: calc(var(--pm-hero-h, 0px) + var(--pm-tabnav-h, 0px));
+  z-index: 54;                                 /* below tab-nav (55) */
+  padding: 8px 40px;
+  background: #f2f3f3;                         /* matches tab-nav band */
+  border-bottom: 1px solid var(--border, #e9ebed);
+  box-shadow: 0 2px 8px rgba(0,7,22,.04);
+}
+body.presenting .pm-subnav[hidden] { display: none; }
+html[data-theme="dark"] body.presenting .pm-subnav { background: var(--bg, #0F1B2D); }
+.pm-sub-dot {
+  width: 28px; height: 8px; padding: 0; border-radius: 4px;
+  border: 1px solid var(--border, #E2E8F0);
+  background: var(--bg-white, #fff);
+  cursor: pointer;
+  transition: background .2s cubic-bezier(.4,0,.2,1),
+              border-color .2s cubic-bezier(.4,0,.2,1),
+              transform .2s cubic-bezier(.4,0,.2,1);
+}
+.pm-sub-dot:hover { border-color: var(--green, #059669); }
+.pm-sub-dot.on {
+  background: var(--green, #059669); border-color: var(--green, #059669);
+  transform: scaleX(1.15);                     /* current one is slightly wider */
+}
+.pm-sub-dot:focus-visible {
+  outline: 2px solid var(--green, #059669); outline-offset: 3px;
+}
